@@ -2,28 +2,19 @@ import React, { useState } from "react";
 import { Circle, StyledCell, TBody, Table, TableHeader } from "./styled";
 import { colorSwitcher } from "./colorSwitcher";
 
-//0 initial
-//1 hit
-//2 pudło
-//3 hit and bb
+type BoardProps = {
+  boardArray: number[][];
+};
 
-export const Board = () => {
-  const initialBoard: number[][] = [];
-  for (let i = 0; i < 10; i++) {
-    initialBoard[i] = [];
-    for (let j = 0; j < 10; j++) {
-      initialBoard[i][j] = 0;
-    }
-  }
-
-  const [board, setBoard] = useState(initialBoard);
+export const Board: React.FC<BoardProps> = ({ boardArray }) => {
+  const [board, setBoard] = useState(boardArray);
 
   const columnHeaders = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  const rowHeaders = Array.from({ length: 11 }, (_, i) => i);
+  const rowHeaders = Array.from({ length: 11 }, (_, i) => i+1);
 
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
     const updatedBoard = [...board];
-    updatedBoard[rowIndex][columnIndex] = 2; // Ustaw odpowiedni stan, np. 1 oznacza trafienie
+    updatedBoard[rowIndex][columnIndex] = 2; // Ustaw odpowiedni stan, np. 2 oznacza pudło
     setBoard(updatedBoard);
   };
 
@@ -48,7 +39,7 @@ export const Board = () => {
                 key={columnIndex}
                 onClick={() => handleCellClick(rowIndex, columnIndex)}
                 color={colorSwitcher(cell)}
-                data-coordinates={`(${columnIndex}, ${rowIndex})`} // Przekazanie współrzędnych
+                data-coordinates={`(${columnHeaders[columnIndex]}, ${rowIndex+1})`} // Przekazanie współrzędnych
               >
                 {cell}
               </StyledCell>

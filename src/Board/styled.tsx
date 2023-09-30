@@ -64,7 +64,7 @@ export const StyledCell = styled.td`
     &::after {
       content: attr(data-coordinates);
       text-align: center;
-      width: 30px;
+      width: 36px;
       position: absolute;
       top: 100%;
       left: 50%;

@@ -24,7 +24,7 @@ export const GameField = () => {
 
         <SingleBoard>
           <Title>Oponent board</Title>
-          <Board boardArray={initialBoard} />
+          <Board boardArray={initialBoard} oponentBoard/>
           <Title>Destroyed Ships</Title>
           <DestroyedShips></DestroyedShips>
         </SingleBoard>

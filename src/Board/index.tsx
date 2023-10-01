@@ -11,10 +11,10 @@ type Cell = {
 
 type BoardProps = {
   boardArray: Cell[][];
+  oponentBoard?: boolean;
 };
 
-export const Board: React.FC<BoardProps> = ({ boardArray }) => {
-
+export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
   const randomBoard: { value: number; state: number }[][] = [];
   for (let i = 0; i < 10; i++) {
     randomBoard[i] = [];
@@ -23,20 +23,58 @@ export const Board: React.FC<BoardProps> = ({ boardArray }) => {
     }
   }
 
-  
-  
   placeShips(randomBoard);
   const [board, setBoard] = useState(randomBoard);
 
   const columnHeaders = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  const rowHeaders = Array.from({ length: 11 }, (_, i) => i+1);
+  const rowHeaders = Array.from({ length: 11 }, (_, i) => i + 1);
 
-  const handleCellClick = (rowIndex: number, columnIndex: number) => {
+  const handleCellClick = (
+    rowIndex: number,
+    columnIndex: number
+  ) => {
+    if (board[rowIndex][columnIndex].state !== 0) {
+      return;
+    }
+    
     const updatedBoard = [...board];
-    updatedBoard[rowIndex][columnIndex] = { ...updatedBoard[rowIndex][columnIndex], state: 2 }; // Ustaw odpowiedni stan, np. 2 oznacza pudło
-    setBoard(updatedBoard);
-  };
+    const clickedSquare = board[rowIndex][columnIndex];
 
+    if (clickedSquare.value > 0) {
+      updatedBoard[rowIndex][columnIndex] = {
+        ...updatedBoard[rowIndex][columnIndex],
+        state: 1,
+      };
+      setBoard(updatedBoard);
+      
+      if (clickedSquare.value === 1) {
+        updatedBoard[rowIndex][columnIndex] = {
+          ...updatedBoard[rowIndex][columnIndex],
+          state: 3,
+        };
+        setBoard(updatedBoard);
+      } else if (
+        clickedSquare.value === 2 &&
+        (rowIndex > 0 && updatedBoard[rowIndex - 1][columnIndex].state === 1 ||
+         rowIndex < updatedBoard.length - 1 && updatedBoard[rowIndex + 1][columnIndex].state === 1 ||
+         columnIndex > 0 && updatedBoard[rowIndex][columnIndex - 1].state === 1 ||
+         columnIndex < updatedBoard[rowIndex].length - 1 && updatedBoard[rowIndex][columnIndex + 1].state === 1)
+      ) {
+        updatedBoard[rowIndex][columnIndex] = {
+          ...updatedBoard[rowIndex][columnIndex],
+          state: 3,
+        };
+        setBoard(updatedBoard);
+      }
+    } else {
+      updatedBoard[rowIndex][columnIndex] = {
+        ...updatedBoard[rowIndex][columnIndex],
+        state: 2,
+      };
+      setBoard(updatedBoard);
+    }
+  };
+  
 
   return (
     <Table>
@@ -58,11 +96,15 @@ export const Board: React.FC<BoardProps> = ({ boardArray }) => {
               <StyledCell
                 key={columnIndex}
                 onClick={() => handleCellClick(rowIndex, columnIndex)}
-                color={valueColorSwitcher(cell.value)}
-                data-coordinates={`(${columnHeaders[columnIndex]}, ${rowIndex+1})`} // Przekazanie współrzędnych
-              >
-                {cell.value}
-              </StyledCell>
+                color={
+                  oponentBoard
+                    ? stateColorSwitcher(cell.state)
+                    : valueColorSwitcher(cell.value)
+                }
+                data-coordinates={`(${columnHeaders[columnIndex]}, ${
+                  rowIndex + 1
+                })`} // Przekazanie współrzędnych
+              ></StyledCell>
             ))}
           </tr>
         ))}

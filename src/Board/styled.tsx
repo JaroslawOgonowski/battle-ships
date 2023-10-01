@@ -29,7 +29,7 @@ const scaleUp = keyframes`
 export const Circle = styled.div`
   width: 1px;
   height: 1px;
-  border: 1px dotted #a0170b;
+  border: 5px dotted #931206;
   border-radius: 50%;
   position: absolute;
   top: 50%;

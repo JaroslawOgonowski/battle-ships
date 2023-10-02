@@ -37,15 +37,13 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
     const updatedBoard = [...board];
     let clickedSquare = updatedBoard[rowIndex][columnIndex];
     if (clickedSquare.value > 0) {
-
       updatedBoard[rowIndex][columnIndex] = {
         ...clickedSquare,
         state: 1,
       };
       setBoard(updatedBoard);
-    
-      const checkAndUpdateCells = () => {
 
+      const checkAndUpdateCells = () => {
         let rowAllMatch = true;
         for (let col = 0; col < updatedBoard[rowIndex].length; col++) {
           if (
@@ -72,6 +70,24 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
         if (rowAllMatch && columnAllMatch) {
           for (let col = 0; col < updatedBoard[rowIndex].length; col++) {
             if (updatedBoard[rowIndex][col].value === clickedSquare.value) {
+              if (updatedBoard[rowIndex + 1][col].state != 3)
+                updatedBoard[rowIndex + 1][col].state = 2;
+              if (updatedBoard[rowIndex + 1][col].state != 3)
+                updatedBoard[rowIndex + 1][col].state = 2;
+              if (updatedBoard[rowIndex - 1][col].state != 3)
+                updatedBoard[rowIndex - 1][col].state = 2;
+              if (updatedBoard[rowIndex][col + 1].state != 3)
+                updatedBoard[rowIndex][col + 1].state = 2;
+              if (updatedBoard[rowIndex][col - 1].state != 3)
+                updatedBoard[rowIndex][col - 1].state = 2;
+              if (updatedBoard[rowIndex + 1][col + 1].state != 3)
+                updatedBoard[rowIndex + 1][col + 1].state = 2;
+              if (updatedBoard[rowIndex - 1][col - 1].state != 3)
+                updatedBoard[rowIndex - 1][col - 1].state = 2;
+              if (updatedBoard[rowIndex - 1][col + 1].state != 3)
+                updatedBoard[rowIndex - 1][col + 1].state = 2;
+              if (updatedBoard[rowIndex + 1][col - 1].state != 3)
+                updatedBoard[rowIndex + 1][col - 1].state = 2;
               updatedBoard[rowIndex][col].state = 3;
             }
           }
@@ -80,6 +96,24 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
         if (columnAllMatch && rowAllMatch) {
           for (let row = 0; row < updatedBoard.length; row++) {
             if (updatedBoard[row][columnIndex].value === clickedSquare.value) {
+              if (updatedBoard[columnIndex + 1][row].state != 3)
+                updatedBoard[columnIndex + 1][row].state = 2;
+              if (updatedBoard[columnIndex + 1][row].state != 3)
+                updatedBoard[columnIndex + 1][row].state = 2;
+              if (updatedBoard[columnIndex - 1][row].state != 3)
+                updatedBoard[columnIndex - 1][row].state = 2;
+              if (updatedBoard[columnIndex][row + 1].state != 3)
+                updatedBoard[columnIndex][row + 1].state = 2;
+              if (updatedBoard[columnIndex][row - 1].state != 3)
+                updatedBoard[columnIndex][row - 1].state = 2;
+              if (updatedBoard[columnIndex + 1][row + 1].state != 3)
+                updatedBoard[columnIndex + 1][row + 1].state = 2;
+              if (updatedBoard[columnIndex - 1][row - 1].state != 3)
+                updatedBoard[columnIndex - 1][row - 1].state = 2;
+              if (updatedBoard[columnIndex - 1][row + 1].state != 3)
+                updatedBoard[columnIndex - 1][row + 1].state = 2;
+              if (updatedBoard[columnIndex + 1][row - 1].state != 3)
+                updatedBoard[columnIndex + 1][row - 1].state = 2;
               updatedBoard[row][columnIndex].state = 3;
             }
           }

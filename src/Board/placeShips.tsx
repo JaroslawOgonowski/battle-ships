@@ -8,19 +8,19 @@ function placeSequential(board: { value: number; state: number }[][], value: num
       if (randomCol + numFields <= 10) {
         let canPlace = true;
         for (let col = randomCol; col < randomCol + numFields; col++) {
-          if (board[randomRow][col].value !== 0) { // Zmieniamy warunek na różny od zera
+          if (board[randomRow][col].value !== 0) { 
             canPlace = false;
             break;
           }
           if (
-            randomRow > 0 && board[randomRow - 1][col].value !== 0 || // Zmieniamy warunek na różny od zera
-            randomRow < 9 && board[randomRow + 1][col].value !== 0 || // Zmieniamy warunek na różny od zera
-            (col > 0 && board[randomRow][col - 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (col < 9 && board[randomRow][col + 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (randomRow > 0 && col > 0 && board[randomRow - 1][col - 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (randomRow > 0 && col < 9 && board[randomRow - 1][col + 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (randomRow < 9 && col > 0 && board[randomRow + 1][col - 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (randomRow < 9 && col < 9 && board[randomRow + 1][col + 1].value !== 0) // Zmieniamy warunek na różny od zera
+            randomRow > 0 && board[randomRow - 1][col].value !== 0 ||
+            randomRow < 9 && board[randomRow + 1][col].value !== 0 || 
+            (col > 0 && board[randomRow][col - 1].value !== 0) || 
+            (col < 9 && board[randomRow][col + 1].value !== 0) || 
+            (randomRow > 0 && col > 0 && board[randomRow - 1][col - 1].value !== 0) || 
+            (randomRow > 0 && col < 9 && board[randomRow - 1][col + 1].value !== 0) || 
+            (randomRow < 9 && col > 0 && board[randomRow + 1][col - 1].value !== 0) || 
+            (randomRow < 9 && col < 9 && board[randomRow + 1][col + 1].value !== 0) 
           ) {
             canPlace = false;
             break;
@@ -38,19 +38,19 @@ function placeSequential(board: { value: number; state: number }[][], value: num
       if (randomRow + numFields <= 10) {
         let canPlace = true;
         for (let row = randomRow; row < randomRow + numFields; row++) {
-          if (board[row][randomCol].value !== 0) { // Zmieniamy warunek na różny od zera
+          if (board[row][randomCol].value !== 0) { 
             canPlace = false;
             break;
           }
           if (
-            randomCol > 0 && board[row][randomCol - 1].value !== 0 || // Zmieniamy warunek na różny od zera
-            randomCol < 9 && board[row][randomCol + 1].value !== 0 || // Zmieniamy warunek na różny od zera
-            (row > 0 && board[row - 1][randomCol].value !== 0) || // Zmieniamy warunek na różny od zera
-            (row < 9 && board[row + 1][randomCol].value !== 0) || // Zmieniamy warunek na różny od zera
-            (row > 0 && randomCol > 0 && board[row - 1][randomCol - 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (row > 0 && randomCol < 9 && board[row - 1][randomCol + 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (row < 9 && randomCol > 0 && board[row + 1][randomCol - 1].value !== 0) || // Zmieniamy warunek na różny od zera
-            (row < 9 && randomCol < 9 && board[row + 1][randomCol + 1].value !== 0) // Zmieniamy warunek na różny od zera
+            randomCol > 0 && board[row][randomCol - 1].value !== 0 || 
+            randomCol < 9 && board[row][randomCol + 1].value !== 0 || 
+            (row > 0 && board[row - 1][randomCol].value !== 0) || 
+            (row < 9 && board[row + 1][randomCol].value !== 0) || 
+            (row > 0 && randomCol > 0 && board[row - 1][randomCol - 1].value !== 0) || 
+            (row > 0 && randomCol < 9 && board[row - 1][randomCol + 1].value !== 0) || 
+            (row < 9 && randomCol > 0 && board[row + 1][randomCol - 1].value !== 0) || 
+            (row < 9 && randomCol < 9 && board[row + 1][randomCol + 1].value !== 0) 
           ) {
             canPlace = false;
             break;

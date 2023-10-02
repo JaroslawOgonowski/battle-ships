@@ -69,13 +69,13 @@ function placeSequential(board: { value: number; state: number }[][], value: num
 }
   
 export const placeShips = (board: { value: number; state: number }[][]) => {
-  placeSequential(board, 5, 5);
-  placeSequential(board, 4, 4);
-  placeSequential(board, 2, 2);
-  placeSequential(board, 2, 2);
-  placeSequential(board, 3, 3);
-  placeSequential(board, 3, 3);
-  placeSequential(board, 1, 1);
-  placeSequential(board, 1, 1);
-  placeSequential(board, 1, 1);
+  placeSequential(board, 1, 5);
+  placeSequential(board, 2, 4);
+  placeSequential(board, 3, 2);
+  placeSequential(board, 4, 2);
+  placeSequential(board, 5, 3);
+  placeSequential(board, 6, 3);
+  placeSequential(board, 7, 1);
+  placeSequential(board, 8, 1);
+  placeSequential(board, 9, 1);
 }

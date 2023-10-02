@@ -29,52 +29,75 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
   const columnHeaders = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   const rowHeaders = Array.from({ length: 11 }, (_, i) => i + 1);
 
-  const handleCellClick = (
-    rowIndex: number,
-    columnIndex: number
-  ) => {
+  const handleCellClick = (rowIndex: number, columnIndex: number) => {
     if (board[rowIndex][columnIndex].state !== 0) {
       return;
     }
-    
-    const updatedBoard = [...board];
-    const clickedSquare = board[rowIndex][columnIndex];
 
+    const updatedBoard = [...board];
+    let clickedSquare = updatedBoard[rowIndex][columnIndex];
     if (clickedSquare.value > 0) {
+
       updatedBoard[rowIndex][columnIndex] = {
-        ...updatedBoard[rowIndex][columnIndex],
+        ...clickedSquare,
         state: 1,
       };
       setBoard(updatedBoard);
-      
-      if (clickedSquare.value === 1) {
-        updatedBoard[rowIndex][columnIndex] = {
-          ...updatedBoard[rowIndex][columnIndex],
-          state: 3,
-        };
-        setBoard(updatedBoard);
-      } else if (
-        clickedSquare.value === 2 &&
-        (rowIndex > 0 && updatedBoard[rowIndex - 1][columnIndex].state === 1 ||
-         rowIndex < updatedBoard.length - 1 && updatedBoard[rowIndex + 1][columnIndex].state === 1 ||
-         columnIndex > 0 && updatedBoard[rowIndex][columnIndex - 1].state === 1 ||
-         columnIndex < updatedBoard[rowIndex].length - 1 && updatedBoard[rowIndex][columnIndex + 1].state === 1)
-      ) {
-        updatedBoard[rowIndex][columnIndex] = {
-          ...updatedBoard[rowIndex][columnIndex],
-          state: 3,
-        };
-        setBoard(updatedBoard);
-      }
+    
+      const checkAndUpdateCells = () => {
+
+        let rowAllMatch = true;
+        for (let col = 0; col < updatedBoard[rowIndex].length; col++) {
+          if (
+            updatedBoard[rowIndex][col].value === clickedSquare.value &&
+            updatedBoard[rowIndex][col].state !== 1
+          ) {
+            rowAllMatch = false;
+            break;
+          }
+          console.log("rowAllMatch:", rowAllMatch);
+        }
+
+        let columnAllMatch = true;
+        for (let row = 0; row < updatedBoard.length; row++) {
+          if (
+            updatedBoard[row][columnIndex].value === clickedSquare.value &&
+            updatedBoard[row][columnIndex].state !== 1
+          ) {
+            columnAllMatch = false;
+            break;
+          }
+        }
+
+        if (rowAllMatch && columnAllMatch) {
+          for (let col = 0; col < updatedBoard[rowIndex].length; col++) {
+            if (updatedBoard[rowIndex][col].value === clickedSquare.value) {
+              updatedBoard[rowIndex][col].state = 3;
+            }
+          }
+        }
+
+        if (columnAllMatch && rowAllMatch) {
+          for (let row = 0; row < updatedBoard.length; row++) {
+            if (updatedBoard[row][columnIndex].value === clickedSquare.value) {
+              updatedBoard[row][columnIndex].state = 3;
+            }
+          }
+        }
+      };
+
+      checkAndUpdateCells();
+
+      setBoard(updatedBoard);
     } else {
       updatedBoard[rowIndex][columnIndex] = {
-        ...updatedBoard[rowIndex][columnIndex],
+        ...clickedSquare,
         state: 2,
       };
+
       setBoard(updatedBoard);
     }
   };
-  
 
   return (
     <Table>
@@ -104,7 +127,9 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
                 data-coordinates={`(${columnHeaders[columnIndex]}, ${
                   rowIndex + 1
                 })`} // Przekazanie współrzędnych
-              ></StyledCell>
+              >
+                {cell.value}
+              </StyledCell>
             ))}
           </tr>
         ))}

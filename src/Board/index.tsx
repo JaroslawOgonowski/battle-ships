@@ -33,105 +33,84 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
     if (board[rowIndex][columnIndex].state !== 0) {
       return;
     }
-
+  
     const updatedBoard = [...board];
-    let clickedSquare = updatedBoard[rowIndex][columnIndex];
+    const clickedSquare = updatedBoard[rowIndex][columnIndex];
+  
     if (clickedSquare.value > 0) {
       updatedBoard[rowIndex][columnIndex] = {
         ...clickedSquare,
         state: 1,
       };
-      setBoard(updatedBoard);
-
-      const checkAndUpdateCells = () => {
-        let rowAllMatch = true;
-        for (let col = 0; col < updatedBoard[rowIndex].length; col++) {
-          if (
-            updatedBoard[rowIndex][col].value === clickedSquare.value &&
-            updatedBoard[rowIndex][col].state !== 1
-          ) {
-            rowAllMatch = false;
-            break;
-          }
-          console.log("rowAllMatch:", rowAllMatch);
-        }
-
-        let columnAllMatch = true;
-        for (let row = 0; row < updatedBoard.length; row++) {
-          if (
-            updatedBoard[row][columnIndex].value === clickedSquare.value &&
-            updatedBoard[row][columnIndex].state !== 1
-          ) {
-            columnAllMatch = false;
+  
+      const targetValue = clickedSquare.value;
+      let allSameValueCellsHaveState1 = true;
+  
+      for (let row = 0; row < 10; row++) {
+        for (let col = 0; col < 10; col++) {
+          const cell = updatedBoard[row][col];
+  
+          if (cell.value === targetValue && cell.state !== 1) {
+            allSameValueCellsHaveState1 = false;
             break;
           }
         }
-
-        if (rowAllMatch && columnAllMatch) {
-          for (let col = 0; col < updatedBoard[rowIndex].length; col++) {
-            if (updatedBoard[rowIndex][col].value === clickedSquare.value) {
-              if (updatedBoard[rowIndex + 1][col].state != 3)
-                updatedBoard[rowIndex + 1][col].state = 2;
-              if (updatedBoard[rowIndex + 1][col].state != 3)
-                updatedBoard[rowIndex + 1][col].state = 2;
-              if (updatedBoard[rowIndex - 1][col].state != 3)
-                updatedBoard[rowIndex - 1][col].state = 2;
-              if (updatedBoard[rowIndex][col + 1].state != 3)
-                updatedBoard[rowIndex][col + 1].state = 2;
-              if (updatedBoard[rowIndex][col - 1].state != 3)
-                updatedBoard[rowIndex][col - 1].state = 2;
-              if (updatedBoard[rowIndex + 1][col + 1].state != 3)
-                updatedBoard[rowIndex + 1][col + 1].state = 2;
-              if (updatedBoard[rowIndex - 1][col - 1].state != 3)
-                updatedBoard[rowIndex - 1][col - 1].state = 2;
-              if (updatedBoard[rowIndex - 1][col + 1].state != 3)
-                updatedBoard[rowIndex - 1][col + 1].state = 2;
-              if (updatedBoard[rowIndex + 1][col - 1].state != 3)
-                updatedBoard[rowIndex + 1][col - 1].state = 2;
-              updatedBoard[rowIndex][col].state = 3;
+  
+        if (!allSameValueCellsHaveState1) {
+          break;
+        }
+      }
+  
+      if (allSameValueCellsHaveState1) {
+        for (let row = 0; row < 10; row++) {
+          for (let col = 0; col < 10; col++) {
+            const cell = updatedBoard[row][col];
+  
+            if (cell.value === targetValue) {
+              cell.state = 3;
             }
           }
         }
-
-        if (columnAllMatch && rowAllMatch) {
-          for (let row = 0; row < updatedBoard.length; row++) {
-            if (updatedBoard[row][columnIndex].value === clickedSquare.value) {
-              if (updatedBoard[columnIndex + 1][row].state != 3)
-                updatedBoard[columnIndex + 1][row].state = 2;
-              if (updatedBoard[columnIndex + 1][row].state != 3)
-                updatedBoard[columnIndex + 1][row].state = 2;
-              if (updatedBoard[columnIndex - 1][row].state != 3)
-                updatedBoard[columnIndex - 1][row].state = 2;
-              if (updatedBoard[columnIndex][row + 1].state != 3)
-                updatedBoard[columnIndex][row + 1].state = 2;
-              if (updatedBoard[columnIndex][row - 1].state != 3)
-                updatedBoard[columnIndex][row - 1].state = 2;
-              if (updatedBoard[columnIndex + 1][row + 1].state != 3)
-                updatedBoard[columnIndex + 1][row + 1].state = 2;
-              if (updatedBoard[columnIndex - 1][row - 1].state != 3)
-                updatedBoard[columnIndex - 1][row - 1].state = 2;
-              if (updatedBoard[columnIndex - 1][row + 1].state != 3)
-                updatedBoard[columnIndex - 1][row + 1].state = 2;
-              if (updatedBoard[columnIndex + 1][row - 1].state != 3)
-                updatedBoard[columnIndex + 1][row - 1].state = 2;
-              updatedBoard[row][columnIndex].state = 3;
-            }
-          }
+      }
+  
+      // Dodatkowy warunek dla sąsiednich pól
+      const directions = [
+        [0, 1], // Góra
+        [0, -1], // Dół
+        [-1, 0], // Lewo
+        [1, 0], // Prawo
+        [1, 1],
+        [-1, -1],
+        [-1, 1],
+        [1, -1]
+      ];
+  
+      for (const [dx, dy] of directions) {
+        const newRow = rowIndex + dy;
+        const newColumn = columnIndex + dx;
+  
+        if (
+          newRow >= 0 &&
+          newRow < 10 &&
+          newColumn >= 0 &&
+          newColumn < 10 &&
+          updatedBoard[newRow][newColumn].value === 0
+        ) {
+          updatedBoard[newRow][newColumn].state = 2;
         }
-      };
-
-      checkAndUpdateCells();
-
+      }
+  
       setBoard(updatedBoard);
     } else {
       updatedBoard[rowIndex][columnIndex] = {
         ...clickedSquare,
         state: 2,
       };
-
+  
       setBoard(updatedBoard);
     }
   };
+  
 
   return (
     <Table>

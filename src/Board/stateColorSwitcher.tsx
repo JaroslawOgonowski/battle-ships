@@ -1,7 +1,7 @@
 export const stateColorSwitcher = (state: number) => {
   switch (state) {
     case 0:
-      return "#000000f8";
+      return "#c7c1c1f8";
     case 1:
       return "#e83c12f8";//hit
     case 2:

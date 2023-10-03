@@ -1,0 +1,93 @@
+  if (
+                updatedBoard[rowIndex + 1][col].state !== 3 ||
+                updatedBoard[rowIndex + 1][col].state !== 1
+              )
+                updatedBoard[rowIndex][col].state == 3;
+              updatedBoard[rowIndex + 1][col].state == 2;
+              if (
+                updatedBoard[rowIndex - 1][col].state !== 3 ||
+                updatedBoard[rowIndex - 1][col].state !== 1
+              )
+                updatedBoard[rowIndex][col].state = 3;
+              updatedBoard[rowIndex - 1][col].state = 2;
+              if (
+                updatedBoard[rowIndex][col + 1].state !== 3 ||
+                updatedBoard[rowIndex][col + 1].state !== 1
+              )
+                updatedBoard[rowIndex][col].state = 3;
+              updatedBoard[rowIndex][col + 1].state = 2;
+              if (
+                updatedBoard[rowIndex][col - 1].state !== 3 ||
+                updatedBoard[rowIndex][col + 1].state !== 1
+              )
+                updatedBoard[rowIndex][col].state = 3;
+              updatedBoard[rowIndex][col - 1].state = 2;
+              if (
+                updatedBoard[rowIndex + 1][col + 1].state !== 3 ||
+                updatedBoard[rowIndex + 1][col + 1].state !== 1
+              )
+                updatedBoard[rowIndex][col].state = 3;
+              updatedBoard[rowIndex + 1][col + 1].state = 2;
+              if (
+                updatedBoard[rowIndex - 1][col - 1].state !== 3 ||
+                updatedBoard[rowIndex - 1][col - 1].state !== 1
+              )
+                updatedBoard[rowIndex][col].state = 3;
+              updatedBoard[rowIndex - 1][col - 1].state = 2;
+              if (
+                updatedBoard[rowIndex - 1][col + 1].state !== 3 ||
+                updatedBoard[rowIndex - 1][col + 1].state !== 1
+              )
+                updatedBoard[rowIndex][col].state = 3;
+              updatedBoard[rowIndex - 1][col + 1].state = 2;
+              if (
+                updatedBoard[rowIndex + 1][col - 1].state !== 3 ||
+                updatedBoard[rowIndex + 1][col - 1].state !== 1
+              )
+                updatedBoard[rowIndex][col].state = 3;
+              updatedBoard[rowIndex + 1][col - 1].state = 2;
+
+
+
+
+
+              if (
+                updatedBoard[row][columnIndex + 1].state !== 3 ||
+                updatedBoard[row][columnIndex + 1].state !== 1
+              )
+                updatedBoard[row][columnIndex + 1].state = 2;
+              if (
+                updatedBoard[row][columnIndex - 1].state !== 3 ||
+                updatedBoard[row][columnIndex - 1].state !== 1
+              )
+                updatedBoard[row][columnIndex - 1].state = 2;
+              if (
+                updatedBoard[row + 1][columnIndex].state !== 3 ||
+                updatedBoard[row + 1][columnIndex].state !== 1
+              )
+                updatedBoard[row + 1][columnIndex].state = 2;
+              if (
+                updatedBoard[row - 1][columnIndex].state !== 3 ||
+                updatedBoard[row - 1][columnIndex].state !== 1
+              )
+                updatedBoard[row - 1][columnIndex].state = 2;
+              if (
+                updatedBoard[row + 1][columnIndex + 1].state !== 3 ||
+                updatedBoard[row + 1][columnIndex + 1].state !== 1
+              )
+                updatedBoard[row + 1][columnIndex + 1].state = 2;
+              if (
+                updatedBoard[row - 1][columnIndex - 1].state !== 3 ||
+                updatedBoard[row - 1][columnIndex - 1].state !== 1
+              )
+                updatedBoard[row - 1][columnIndex - 1].state = 2;
+              if (
+                updatedBoard[row + 1][columnIndex - 1].state !== 3 ||
+                updatedBoard[row + 1][columnIndex - 1].state !== 1
+              )
+                updatedBoard[row + 1][columnIndex - 1].state = 2;
+              if (
+                updatedBoard[row - 1][columnIndex + 1].state !== 3 ||
+                updatedBoard[row - 1][columnIndex + 1].state !== 1
+              )
+                updatedBoard[row - 1][columnIndex + 1].state = 2;

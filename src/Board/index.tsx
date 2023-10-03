@@ -31,81 +31,77 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
 
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
     const directions = [
-      [0, 1], // Góra
-      [0, -1], // Dół
-      [-1, 0], // Lewo
-      [1, 0], // Prawo
+      [0, 1],
+      [0, -1],
+      [-1, 0],
+      [1, 0],
       [1, 1],
       [-1, -1],
       [-1, 1],
       [1, -1],
     ];
-  
+
     if (board[rowIndex][columnIndex].state !== 0) {
       return;
     }
-  
+
     const updatedBoard = [...board];
     const clickedSquare = updatedBoard[rowIndex][columnIndex];
-  
+
     if (clickedSquare.value > 0) {
       updatedBoard[rowIndex][columnIndex] = {
         ...clickedSquare,
         state: 1,
       };
-  
+
       const targetValue = clickedSquare.value;
       let allSameValueCellsHaveState1 = true;
-  
+
       for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 10; col++) {
           const cell = updatedBoard[row][col];
-  
+
           if (cell.value === targetValue && cell.state !== 1) {
             allSameValueCellsHaveState1 = false;
             break;
           }
         }
-  
+
         if (!allSameValueCellsHaveState1) {
           break;
         }
       }
-  
+
       if (allSameValueCellsHaveState1) {
         for (let row = 0; row < 10; row++) {
           for (let col = 0; col < 10; col++) {
             const cell = updatedBoard[row][col];
-  
+
             if (cell.value === targetValue) {
               cell.state = 3;
             }
           }
         }
       }
-  
-      // Dodatkowy warunek dla sąsiednich pól
-  
       setBoard(updatedBoard);
     } else {
       updatedBoard[rowIndex][columnIndex] = {
         ...clickedSquare,
         state: 2,
       };
-  
+
       setBoard(updatedBoard);
     }
-  
-    // Przeiteruj całą tablicę i dla wszystkich komórek o stanie 3 zmień ich sąsiednie pola o wartości 0 na stan 2
+
     for (let row = 0; row < 10; row++) {
       for (let col = 0; col < 10; col++) {
         const cell = updatedBoard[row][col];
-  
+
         if (cell.state === 3) {
           for (const [dx, dy] of directions) {
             const newRow = row + dy;
             const newColumn = col + dx;
-  
+
             if (
               newRow >= 0 &&
               newRow < 10 &&
@@ -119,15 +115,15 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
         }
       }
     }
-  
+
     setBoard(updatedBoard);
   };
-  
+
   return (
     <Table>
       <thead>
         <tr>
-          <th></th> {/* Puste pole w lewym górnym rogu */}
+          <th></th>
           {columnHeaders.map((header, index) => (
             <TableHeader key={index}>{header}</TableHeader>
           ))}
@@ -138,7 +134,6 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
         {board.map((row, rowIndex) => (
           <tr key={rowIndex}>
             <TableHeader>{rowHeaders[rowIndex]}</TableHeader>{" "}
-            {/* Dodanie cyfr w kolumnie po lewej stronie */}
             {row.map((cell, columnIndex) => (
               <StyledCell
                 key={columnIndex}
@@ -150,7 +145,7 @@ export const Board: React.FC<BoardProps> = ({ boardArray, oponentBoard }) => {
                 }
                 data-coordinates={`(${columnHeaders[columnIndex]}, ${
                   rowIndex + 1
-                })`} // Przekazanie współrzędnych
+                })`}
               >
                 {cell.value}
               </StyledCell>

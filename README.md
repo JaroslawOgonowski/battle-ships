@@ -1,4 +1,9 @@
 # Battle ships project (under constuction) 🚧⚓
+
+## Ship's log, Day Four:
+Although I didn't manage to finish by midnight due to a chronic lack of time, fifteen minutes past, the `handleCellClick` function is ready - it changes the state of all cells with the same value, and additionally marks all cells around the destroyed ship as "missed." I am convinced that handling this click was the most complex task in the entire project - only deep work brought results, shorter sessions didn't yield such positive outcomes. After two days of fierce battle with functions, besides immense satisfaction, much more enjoyable tasks await me. I have the basic mechanics ready, except for turn-based gameplay and custom ship placements. I'm still having a great time, and visible progress only adds to my enthusiasm, making me want more - but how to conquer a day that can't be stretched ⏰😄.
+
+![Day 3]("./../public/Screenshot_4.png)
 ## Ship's log, day three:
 A total lack of time, but I managed to expand the function handling clicks. I still want to, after sinking the entire ship, automatically change the surrounding fields to a state that corresponds to "missed," and I'm very close to achieving that. Unfortunately, I didn't get much else done today, but I'm quite satisfied with my progress. For now, I'm focusing on getting the basic mechanics working, and I'll leave refactoring that specific function for when it's functional and can be moved to a separate file.
 

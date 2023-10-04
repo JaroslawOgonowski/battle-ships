@@ -1,15 +1,17 @@
+import { useState } from "react";
 import { Board } from "../Board";
-import { DestroyedShips, MainTitle, SingleBoard, StyledGameField, Title } from "./styled";
+import {
+  DestroyedShips,
+  MainTitle,
+  SingleBoard,
+  StyledGameField,
+  Title,
+} from "./styled";
+import { TurnInfo } from "../TurnInfo";
 
 export const GameField = () => {
-  const initialBoard: { value: number; state: number }[][] = [];
-
-  for (let i = 0; i < 10; i++) {
-    initialBoard[i] = [];
-    for (let j = 0; j < 10; j++) {
-      initialBoard[i][j] = { value: 0, state: 0 };
-    }
-  }
+  const [yourTurn, setYourTurn] = useState(true);
+  const [turnInfoTxt, setTurnInfoTxt] = useState("");
 
   return (
     <>
@@ -17,15 +19,15 @@ export const GameField = () => {
       <StyledGameField>
         <SingleBoard>
           <Title>Your board</Title>
-          <Board boardArray={initialBoard} />
-          <Title>Destroyed Ships</Title>
+          <Board yourTurn={yourTurn} setYourTurn={setYourTurn} setTurnInfoTxt={setTurnInfoTxt}/>
+          <Title>Lost Ships</Title>
           <DestroyedShips></DestroyedShips>
         </SingleBoard>
-
+        <TurnInfo yourTurn={yourTurn} turnInfoTxt={turnInfoTxt}/>
         <SingleBoard>
           <Title>Oponent board</Title>
-          <Board boardArray={initialBoard} oponentBoard/>
-          <Title>Destroyed Ships</Title>
+          <Board yourTurn={yourTurn} setYourTurn={setYourTurn} setTurnInfoTxt={setTurnInfoTxt} oponentBoard />
+          <Title>Lost Ships</Title>
           <DestroyedShips></DestroyedShips>
         </SingleBoard>
       </StyledGameField>

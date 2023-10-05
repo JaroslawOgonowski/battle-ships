@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 export const Table = styled.table`
+transition: 500ms;
   border-collapse: collapse;
 `;
 
@@ -53,6 +54,7 @@ export const StyledCell = styled.td`
   cursor: pointer;
   width: 30px;
   height: 30px;
+  transition: 500ms;
   border: 2px solid #20c807ea;
   background-color: ${(props) => props.color || "black"};
   position: relative;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Circle, StyledCell, TBody, Table, TableHeader } from "./styled";
 import { stateColorSwitcher } from "./stateColorSwitcher";
 import { valueColorSwitcher } from "./valueColorSwitcher";
@@ -129,15 +129,32 @@ export const Board: React.FC<BoardProps> = ({
 
   if (!yourTurn) {
     setTimeout(() => {
-      setTurnInfoTxt("00")
-      setTurnInfoState("state")
+      setTurnInfoTxt("00");
+      setTurnInfoState("state");
       setYourTurn(true);
-    }, 3000);
-    setYourTurn(true);
+    }, 6000);
   }
-  
+
+  const [brightness, setBrightness] = useState(0.3);
+
+  useEffect(() => {
+    const updateBrightness = () => {
+      if (!oponentBoard && yourTurn) {
+        setBrightness(0.3);
+      } else if (oponentBoard && !yourTurn) {
+        setBrightness(0.3);
+      } else if (oponentBoard && yourTurn) {
+        setBrightness(1);
+      } else if (!oponentBoard && !yourTurn) {
+        setBrightness(1);
+      }
+    };
+    updateBrightness();
+    return () => {};
+  }, [yourTurn, oponentBoard]);
+
   return (
-    <Table>
+    <Table style={{ filter: `brightness(${brightness})` }}>
       <thead>
         <tr>
           <th></th>

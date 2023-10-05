@@ -10,7 +10,7 @@ import {
 import { TurnInfo } from "../TurnInfo";
 
 export const GameField = () => {
-  const [yourTurn, setYourTurn] = useState(false);
+  const [yourTurn, setYourTurn] = useState(true);
   const [turnInfoTxt, setTurnInfoTxt] = useState("");
   const [turnInfoState, setTurnInfoState] = useState("");
 

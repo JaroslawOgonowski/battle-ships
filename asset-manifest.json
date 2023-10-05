@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/battle-ships/static/js/main.2c5f3bc9.js",
+    "main.js": "/battle-ships/static/js/main.77f3f3fb.js",
     "static/js/787.bae0b24c.chunk.js": "/battle-ships/static/js/787.bae0b24c.chunk.js",
     "index.html": "/battle-ships/index.html",
-    "main.2c5f3bc9.js.map": "/battle-ships/static/js/main.2c5f3bc9.js.map",
+    "main.77f3f3fb.js.map": "/battle-ships/static/js/main.77f3f3fb.js.map",
     "787.bae0b24c.chunk.js.map": "/battle-ships/static/js/787.bae0b24c.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.2c5f3bc9.js"
+    "static/js/main.77f3f3fb.js"
   ]
 }

@@ -13,13 +13,13 @@ export const GameField = () => {
   const [yourTurn, setYourTurn] = useState(false);
   const [turnInfoTxt, setTurnInfoTxt] = useState("");
   const [turnInfoState, setTurnInfoState] = useState("");
-  
+
   return (
     <>
       <MainTitle>📡 Battle ships ⚓</MainTitle>
       <StyledGameField>
         <SingleBoard>
-          <Title>Your board</Title>
+          <Title>Defence stance</Title>
           <Board
             yourTurn={yourTurn}
             setYourTurn={setYourTurn}
@@ -29,9 +29,13 @@ export const GameField = () => {
           <Title>Lost Ships</Title>
           <DestroyedShips></DestroyedShips>
         </SingleBoard>
-        <TurnInfo yourTurn={yourTurn} turnInfoTxt={turnInfoTxt} turnInfoState={turnInfoState}/>
+        <TurnInfo
+          yourTurn={yourTurn}
+          turnInfoTxt={turnInfoTxt}
+          turnInfoState={turnInfoState}
+        />
         <SingleBoard>
-          <Title>Oponent board</Title>
+          <Title>Attack stance</Title>
           <Board
             yourTurn={yourTurn}
             setYourTurn={setYourTurn}

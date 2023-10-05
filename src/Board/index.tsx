@@ -9,6 +9,7 @@ type BoardProps = {
   yourTurn: boolean;
   setYourTurn: React.Dispatch<React.SetStateAction<boolean>>;
   setTurnInfoTxt: React.Dispatch<React.SetStateAction<string>>;
+  setTurnInfoState: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const Board: React.FC<BoardProps> = ({
@@ -16,12 +17,13 @@ export const Board: React.FC<BoardProps> = ({
   yourTurn,
   setYourTurn,
   setTurnInfoTxt,
+  setTurnInfoState,
 }) => {
-  const randomBoard: { value: number; state: number }[][] = [];
+  const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
     randomBoard[i] = [];
     for (let j = 0; j < 10; j++) {
-      randomBoard[i][j] = { value: 0, state: 0 };
+      randomBoard[i][j] = { value: 0, state: "Initial" };
     }
   }
 
@@ -43,7 +45,7 @@ export const Board: React.FC<BoardProps> = ({
         [1, -1],
       ];
 
-      if (board[rowIndex][columnIndex].state !== 0) {
+      if (board[rowIndex][columnIndex].state !== "Initial") {
         return;
       }
 
@@ -53,7 +55,7 @@ export const Board: React.FC<BoardProps> = ({
       if (clickedSquare.value > 0) {
         updatedBoard[rowIndex][columnIndex] = {
           ...clickedSquare,
-          state: 1,
+          state: "Hit",
         };
 
         const targetValue = clickedSquare.value;
@@ -63,7 +65,7 @@ export const Board: React.FC<BoardProps> = ({
           for (let col = 0; col < 10; col++) {
             const cell = updatedBoard[row][col];
 
-            if (cell.value === targetValue && cell.state !== 1) {
+            if (cell.value === targetValue && cell.state !== "Hit") {
               allSameValueCellsHaveState1 = false;
               break;
             }
@@ -80,7 +82,7 @@ export const Board: React.FC<BoardProps> = ({
               const cell = updatedBoard[row][col];
 
               if (cell.value === targetValue) {
-                cell.state = 3;
+                cell.state = "Direct Hit";
               }
             }
           }
@@ -89,7 +91,7 @@ export const Board: React.FC<BoardProps> = ({
       } else {
         updatedBoard[rowIndex][columnIndex] = {
           ...clickedSquare,
-          state: 2,
+          state: "Missed",
         };
 
         setBoard(updatedBoard);
@@ -99,7 +101,7 @@ export const Board: React.FC<BoardProps> = ({
         for (let col = 0; col < 10; col++) {
           const cell = updatedBoard[row][col];
 
-          if (cell.state === 3) {
+          if (cell.state === "Direct Hit") {
             for (const [dx, dy] of directions) {
               const newRow = row + dy;
               const newColumn = col + dx;
@@ -111,19 +113,29 @@ export const Board: React.FC<BoardProps> = ({
                 newColumn < 10 &&
                 updatedBoard[newRow][newColumn].value === 0
               ) {
-                updatedBoard[newRow][newColumn].state = 2;
+                updatedBoard[newRow][newColumn].state = "Missed";
               }
             }
           }
         }
       }
-      
+
       setBoard(updatedBoard);
       setYourTurn(false);
-      setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex+1}`);
+      setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex + 1}`);
+      setTurnInfoState(`${updatedBoard[rowIndex][columnIndex].state}`);
     } else return;
   };
 
+  if (!yourTurn) {
+    setTimeout(() => {
+      setTurnInfoTxt("00")
+      setTurnInfoState("state")
+      setYourTurn(true);
+    }, 3000);
+    setYourTurn(true);
+  }
+  
   return (
     <Table>
       <thead>

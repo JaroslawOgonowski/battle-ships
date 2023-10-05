@@ -20,3 +20,12 @@ text-align: center;
   padding: 0;;
   font-size: 2vw;
 `
+
+export const Content = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+`

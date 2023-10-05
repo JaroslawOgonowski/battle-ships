@@ -1,4 +1,4 @@
-function placeSequential(board: { value: number; state: number }[][], value: number, numFields: number) {
+function placeSequential(board: { value: number; state: string }[][], value: number, numFields: number) {
   while (true) {
     const randomRow = Math.floor(Math.random() * 10);
     const randomCol = Math.floor(Math.random() * 10);
@@ -68,7 +68,7 @@ function placeSequential(board: { value: number; state: number }[][], value: num
   }
 }
   
-export const placeShips = (board: { value: number; state: number }[][]) => {
+export const placeShips = (board: { value: number; state: string }[][]) => {
   placeSequential(board, 1, 5);
   placeSequential(board, 2, 4);
   placeSequential(board, 3, 2);

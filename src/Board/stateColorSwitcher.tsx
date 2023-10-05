@@ -1,12 +1,12 @@
-export const stateColorSwitcher = (state: number) => {
+export const stateColorSwitcher = (state: string) => {
   switch (state) {
-    case 0:
+    case "Initial":
       return "#c7c1c1f8";
-    case 1:
+    case "Hit":
       return "#e83c12f8";//hit
-    case 2:
+    case "Missed":
       return "#156d06f8";//missed
-    case 3:
+    case "Direct Hit":
       return "#b11313f8";//direction hit
     default:
       return "#1c1919f8";

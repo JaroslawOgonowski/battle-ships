@@ -64,15 +64,26 @@ export const Board: React.FC<BoardProps> = ({
   const [brightness, setBrightness] = useState(0.3);
 
   const oponentMove = () => {
-    // random move
-    const randomRow = Math.floor(Math.random() * 10);
-    const randomColumn = Math.floor(Math.random() * 10);
-    console.log(randomColumn, randomRow);
-    if (board[randomRow][randomColumn].state !== "Initial") {
-      console.log("powtórka");
-      oponentMove();
+    const availableMoves = [];
+
+    // Inicjalizacja tablicy dostępnych ruchów
+    for (let row = 0; row < 10; row++) {
+      for (let col = 0; col < 10; col++) {
+        if (board[row][col].state === "Initial") {
+          availableMoves.push({ row, col });
+        }
+      }
+    }
+
+    // Sprawdzenie, czy są dostępne ruchy
+    if (availableMoves.length === 0) {
+      console.log("Brak dostępnych ruchów");
       return;
     }
+
+    // Losowanie dostępnego ruchu
+    const randomIndex = Math.floor(Math.random() * availableMoves.length);
+    const { row: randomRow, col: randomColumn } = availableMoves[randomIndex];
 
     const updatedBoard = [...board];
     const clickedSquare = updatedBoard[randomRow][randomColumn];

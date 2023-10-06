@@ -3,6 +3,7 @@ import { Circle, StyledCell, TBody, Table, TableHeader } from "./styled";
 import { stateColorSwitcher } from "./stateColorSwitcher";
 import { valueColorSwitcher } from "./valueColorSwitcher";
 import { placeShips } from "./placeShips";
+import { hitCheck } from "./hitCheck";
 
 type BoardProps = {
   oponentBoard?: boolean;
@@ -52,74 +53,7 @@ export const Board: React.FC<BoardProps> = ({
       const updatedBoard = [...board];
       const clickedSquare = updatedBoard[rowIndex][columnIndex];
 
-      if (clickedSquare.value > 0) {
-        updatedBoard[rowIndex][columnIndex] = {
-          ...clickedSquare,
-          state: "Hit",
-        };
-
-        const targetValue = clickedSquare.value;
-        let allSameValueCellsHaveState1 = true;
-
-        for (let row = 0; row < 10; row++) {
-          for (let col = 0; col < 10; col++) {
-            const cell = updatedBoard[row][col];
-
-            if (cell.value === targetValue && cell.state !== "Hit") {
-              allSameValueCellsHaveState1 = false;
-              break;
-            }
-          }
-
-          if (!allSameValueCellsHaveState1) {
-            break;
-          }
-        }
-
-        if (allSameValueCellsHaveState1) {
-          for (let row = 0; row < 10; row++) {
-            for (let col = 0; col < 10; col++) {
-              const cell = updatedBoard[row][col];
-
-              if (cell.value === targetValue) {
-                cell.state = "Direct Hit";
-              }
-            }
-          }
-        }
-        setBoard(updatedBoard);
-      } else {
-        updatedBoard[rowIndex][columnIndex] = {
-          ...clickedSquare,
-          state: "Missed",
-        };
-
-        setBoard(updatedBoard);
-      }
-
-      for (let row = 0; row < 10; row++) {
-        for (let col = 0; col < 10; col++) {
-          const cell = updatedBoard[row][col];
-
-          if (cell.state === "Direct Hit") {
-            for (const [dx, dy] of directions) {
-              const newRow = row + dy;
-              const newColumn = col + dx;
-
-              if (
-                newRow >= 0 &&
-                newRow < 10 &&
-                newColumn >= 0 &&
-                newColumn < 10 &&
-                updatedBoard[newRow][newColumn].value === 0
-              ) {
-                updatedBoard[newRow][newColumn].state = "Missed";
-              }
-            }
-          }
-        }
-      }
-
+      hitCheck(rowIndex, columnIndex, updatedBoard, clickedSquare, setBoard);
       setBoard(updatedBoard);
       setYourTurn(false);
       setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex + 1}`);
@@ -127,15 +61,38 @@ export const Board: React.FC<BoardProps> = ({
     } else return;
   };
 
-  if (!yourTurn) {
-    setTimeout(() => {
-      setTurnInfoTxt("00");
-      setTurnInfoState("state");
-      setYourTurn(true);
-    }, 6000);
-  }
-
   const [brightness, setBrightness] = useState(0.3);
+
+  const oponentMove = () => {
+    // random move
+    const randomRow = Math.floor(Math.random() * 10);
+    const randomColumn = Math.floor(Math.random() * 10);
+    console.log(randomColumn, randomRow);
+    if (board[randomRow][randomColumn].state !== "Initial") {
+      console.log("powtórka");
+      oponentMove();
+      return;
+    }
+
+    const updatedBoard = [...board];
+    const clickedSquare = updatedBoard[randomRow][randomColumn];
+
+    hitCheck(randomRow, randomColumn, updatedBoard, clickedSquare, setBoard);
+    setBoard(updatedBoard);
+    setTurnInfoTxt(`${columnHeaders[randomColumn]}${randomRow + 1}`);
+    setTurnInfoState(`${updatedBoard[randomRow][randomColumn].state}`);
+  };
+
+  useEffect(() => {
+    if (!yourTurn && !oponentBoard) {
+      const timeoutId = setTimeout(() => {
+        oponentMove();
+        setYourTurn(true);
+      }, 4000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [yourTurn, oponentBoard]);
 
   useEffect(() => {
     const updateBrightness = () => {
@@ -175,7 +132,8 @@ export const Board: React.FC<BoardProps> = ({
                 color={
                   oponentBoard
                     ? stateColorSwitcher(cell.state)
-                    : valueColorSwitcher(cell.value)
+                    : //: valueColorSwitcher(cell.value)
+                      stateColorSwitcher(cell.state)
                 }
                 data-coordinates={`(${columnHeaders[columnIndex]}, ${
                   rowIndex + 1

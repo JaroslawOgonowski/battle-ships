@@ -1,4 +1,10 @@
 # Battle ships project (under constuction) 🚧⚓
+
+## Ship's log, Day Seven:
+Today, the most crucial optimization decisions were made so far. I refactored the code segment responsible for checking the designated square, and I abandoned the prototype of random moves in favor of a much more efficient array of available moves. This array iterates through the board, checking if any ship has already been hit and adding the next possible moves. I managed to fit this into a single full board iteration, and I'm satisfied with the performance. The previous solution theoretically could have led to an infinite loop of random moves, never selecting the one move that remained. Here, the solution is essentially straightforward and works like a player's mind choosing a move from the available options rather than first thinking about a random move and then checking if it can actually be executed 🤯 As for the visual layer, nothing has changed today. The next task is the graphical representation of lost units and an initial interface. Unfortunately, I don't have much time available again over the weekend, which is a pity because this task has incredibly captivated me.
+
+![Day 7]("./../public/Screenshot_7.png)
+
 ## Ship's log, Day Six:
 Today, I had only a few moments, but I managed to cross off quite a few tasks from the list. I completed the turn-based system with a graphical effect that clearly indicates whose turn it is. I also finished the central board with information about recent turns. I'll refine the text to make the message clear, but that's a job for the scriptwriting phase 😉. The next task is quite challenging - I'm planning an enemy movement algorithm. The concept of conditions is actually straightforward and ready; it's just a matter of finding the time to sit down and write it out 🙄.
 

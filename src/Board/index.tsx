@@ -64,26 +64,10 @@ export const Board: React.FC<BoardProps> = ({
   const [brightness, setBrightness] = useState(0.3);
 
   const oponentMove = () => {
-    const availableMoves = [];
     const updatedBoard = [...board];
-  
-    for (let row = 0; row < 10; row++) {
-      for (let col = 0; col < 10; col++) {
-        if (board[row][col].state === "Initial") {
-          availableMoves.push({ row, col });
-        }
-      }
-    }
-  
-    if (availableMoves.length === 0) {
-      console.log("Brak dostępnych ruchów");
-      return;
-    }
-  
     let hitCount = 0;
-    let hitCoordinates: {
-      row: number; col: any; 
-}[] = [];
+    let hitCoordinates: { row: number; col: number }[] = [];
+    const availableMoves = [];
   
     for (let row = 0; row < 10; row++) {
       for (let col = 0; col < 10; col++) {
@@ -91,28 +75,31 @@ export const Board: React.FC<BoardProps> = ({
           hitCount += 1;
           hitCoordinates.push({ row, col });
         }
+        if (updatedBoard[row][col].state === "Initial") {
+          availableMoves.push({ row, col });
+        }
       }
     }
   
     console.log(hitCount, hitCoordinates);
   
-    if (hitCount === 1) {
-
+    if (hitCount === 0) {
+      if (availableMoves.length === 0) {
+        console.log("Brak dostępnych ruchów");
+        return;
+      }
+    } else if (hitCount === 1) {
       const hitCoordinate = hitCoordinates[0];
-  
       const directions = [
         [0, 1],
         [0, -1],
         [-1, 0],
         [1, 0],
       ];
-  
       availableMoves.length = 0;
-  
       for (const [dx, dy] of directions) {
         const newRow = hitCoordinate.row + dy;
         const newCol = hitCoordinate.col + dx;
-  
         if (
           newRow >= 0 &&
           newRow < 10 &&
@@ -124,21 +111,20 @@ export const Board: React.FC<BoardProps> = ({
         }
       }
     } else if (hitCount > 1) {
-
-      const commonRow = hitCoordinates.every((coord) => coord.row === hitCoordinates[0].row)
+      const commonRow = hitCoordinates.every(
+        (coord) => coord.row === hitCoordinates[0].row
+      )
         ? hitCoordinates[0].row
         : null;
-      const commonCol = hitCoordinates.every((coord) => coord.col === hitCoordinates[0].col)
+      const commonCol = hitCoordinates.every(
+        (coord) => coord.col === hitCoordinates[0].col
+      )
         ? hitCoordinates[0].col
         : null;
-  
-
       availableMoves.length = 0;
-  
       if (commonRow !== null) {
         const minCol = Math.min(...hitCoordinates.map((coord) => coord.col));
         const maxCol = Math.max(...hitCoordinates.map((coord) => coord.col));
-  
         if (minCol > 0 && updatedBoard[commonRow][minCol - 1].state === "Initial") {
           availableMoves.push({ row: commonRow, col: minCol - 1 });
         }
@@ -148,7 +134,6 @@ export const Board: React.FC<BoardProps> = ({
       } else if (commonCol !== null) {
         const minRow = Math.min(...hitCoordinates.map((coord) => coord.row));
         const maxRow = Math.max(...hitCoordinates.map((coord) => coord.row));
-  
         if (minRow > 0 && updatedBoard[minRow - 1][commonCol].state === "Initial") {
           availableMoves.push({ row: minRow - 1, col: commonCol });
         }
@@ -157,6 +142,7 @@ export const Board: React.FC<BoardProps> = ({
         }
       }
     }
+  
     const randomIndex = Math.floor(Math.random() * availableMoves.length);
     const { row: randomRow, col: randomColumn } = availableMoves[randomIndex];
   
@@ -166,6 +152,7 @@ export const Board: React.FC<BoardProps> = ({
     setTurnInfoTxt(`${columnHeaders[randomColumn]}${randomRow + 1}`);
     setTurnInfoState(`${updatedBoard[randomRow][randomColumn].state}`);
   };
+  
   
   
 

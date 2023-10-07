@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 export const Table = styled.table`
-transition: 500ms;
+  transition: 500ms;
   border-collapse: collapse;
 `;
 
@@ -58,7 +58,6 @@ export const StyledCell = styled.td`
   border: 2px solid #20c807ea;
   background-color: ${(props) => props.color || "black"};
   position: relative;
-  
 
   &:hover {
     filter: brightness(140%);
@@ -80,7 +79,41 @@ export const StyledCell = styled.td`
   }
 `;
 
-
 export const CellContent = styled.td`
   display: none;
+`;
+
+export const SingleBoard = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Title = styled.h2`
+  margin: 0;
+  padding: 0;
+  font-size: 2vw;
+  color: #2ad513f8;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+export const Ships = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 8vh;
+  flex-wrap: wrap;
+`;
+
+export const ShipImage = styled.img`
+  transition: 500ms;
+  height: 20px;
+  width: auto;
+  filter: hue-rotate(270deg) contrast(2);
 `;

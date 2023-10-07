@@ -6,7 +6,7 @@ import { placeShips } from "./placeShips";
 import { hitCheck } from "./hitCheck";
 
 type BoardProps = {
-  oponentBoard?: boolean;
+  opponentBoard?: boolean;
   yourTurn: boolean;
   setYourTurn: React.Dispatch<React.SetStateAction<boolean>>;
   setTurnInfoTxt: React.Dispatch<React.SetStateAction<string>>;
@@ -14,7 +14,7 @@ type BoardProps = {
 };
 
 export const Board: React.FC<BoardProps> = ({
-  oponentBoard,
+  opponentBoard,
   yourTurn,
   setYourTurn,
   setTurnInfoTxt,
@@ -34,7 +34,7 @@ export const Board: React.FC<BoardProps> = ({
   const rowHeaders = Array.from({ length: 11 }, (_, i) => i + 1);
 
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
-    if (yourTurn === true && oponentBoard) {
+    if (yourTurn === true && opponentBoard) {
       const directions = [
         [0, 1],
         [0, -1],
@@ -63,7 +63,7 @@ export const Board: React.FC<BoardProps> = ({
 
   const [brightness, setBrightness] = useState(0.3);
 
-  const oponentMove = () => {
+  const opponentMove = () => {
     const updatedBoard = [...board];
     let hitCount = 0;
     let hitCoordinates: { row: number; col: number }[] = [];
@@ -157,31 +157,31 @@ export const Board: React.FC<BoardProps> = ({
   
 
   useEffect(() => {
-    if (!yourTurn && !oponentBoard) {
+    if (!yourTurn && !opponentBoard) {
       const timeoutId = setTimeout(() => {
-        oponentMove();
+        opponentMove();
         setYourTurn(true);
       }, 4000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [yourTurn, oponentBoard]);
+  }, [yourTurn, opponentBoard]);
 
   useEffect(() => {
     const updateBrightness = () => {
-      if (!oponentBoard && yourTurn) {
+      if (!opponentBoard && yourTurn) {
         setBrightness(0.3);
-      } else if (oponentBoard && !yourTurn) {
+      } else if (opponentBoard && !yourTurn) {
         setBrightness(0.3);
-      } else if (oponentBoard && yourTurn) {
+      } else if (opponentBoard && yourTurn) {
         setBrightness(1);
-      } else if (!oponentBoard && !yourTurn) {
+      } else if (!opponentBoard && !yourTurn) {
         setBrightness(1);
       }
     };
     updateBrightness();
     return () => {};
-  }, [yourTurn, oponentBoard]);
+  }, [yourTurn, opponentBoard]);
 
   return (
     <Table style={{ filter: `brightness(${brightness})` }}>
@@ -203,7 +203,7 @@ export const Board: React.FC<BoardProps> = ({
                 key={columnIndex}
                 onClick={() => handleCellClick(rowIndex, columnIndex)}
                 color={
-                  oponentBoard
+                  opponentBoard
                     ? stateColorSwitcher(cell.state)
                     : //: valueColorSwitcher(cell.value)
                       stateColorSwitcher(cell.state)

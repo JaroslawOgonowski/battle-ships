@@ -7,7 +7,7 @@ export const MainTitle = styled.h1`
   margin: 1vh 0;
   text-transform: uppercase;
   color: #26f80bf8;
-`
+`;
 export const StyledGameField = styled.div`
   margin: 3vh auto;
   width: 90%;
@@ -18,6 +18,7 @@ export const StyledGameField = styled.div`
 `;
 
 export const SingleBoard = styled.div`
+  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 2vh;
@@ -32,15 +33,21 @@ export const Title = styled.h2`
   color: #2ad513f8;
   text-align: center;
   text-transform: uppercase;
-`
+`;
 
 export const DestroyedShips = styled.div`
   width: 100%;
-  border: 2px dotted red;
   display: flex;
-  gap: 1vw;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   min-height: 8vh;
-`
+  flex-wrap: wrap;
+`;
 
+export const ShipImage = styled.img`
+transition: 500ms;
+height: 20px;
+width: auto;
+filter: hue-rotate(270deg) contrast(2);
+`

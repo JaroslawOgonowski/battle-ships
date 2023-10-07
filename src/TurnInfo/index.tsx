@@ -60,7 +60,7 @@ export const TurnInfo: React.FC<TurnInfoProps> = ({
         {turnInfoState}
         <br />
         <br />
-        {yourTurn ? "Now Time for your move..." : "Wait for oponent move..."}
+        {yourTurn ? "Now Time for your move..." : "Wait for opponent move..."}
       </Turn>
     </Wrapper>
   );

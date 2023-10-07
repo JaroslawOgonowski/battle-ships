@@ -1,5 +1,10 @@
 # Battle ships project (under constuction) 🚧⚓
 
+## Ship's log, day Eight:
+I created ship graphics and added an array to hold their states. I've already thought through the whole function, but ran out of time to implement it. Tomorrow is a break, so I probably won't be able to add anything. I moved some of the gameField elements to the board to avoid code duplication and to have two nearly identical elements that differ mainly in the opponentBoard argument.
+
+![Day 8]("./../public/Screenshot_8.png)
+
 ## Ship's log, Day Seven:
 Today, the most crucial optimization decisions were made so far. I refactored the code segment responsible for checking the designated square, and I abandoned the prototype of random moves in favor of a much more efficient array of available moves. This array iterates through the board, checking if any ship has already been hit and adding the next possible moves. I managed to fit this into a single full board iteration, and I'm satisfied with the performance. The previous solution theoretically could have led to an infinite loop of random moves, never selecting the one move that remained. Here, the solution is essentially straightforward and works like a player's mind choosing a move from the available options rather than first thinking about a random move and then checking if it can actually be executed 🤯 As for the visual layer, nothing has changed today. The next task is the graphical representation of lost units and an initial interface. Unfortunately, I don't have much time available again over the weekend, which is a pity because this task has incredibly captivated me.
 

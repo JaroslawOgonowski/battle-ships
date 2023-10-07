@@ -35,7 +35,6 @@ export const Board: React.FC<BoardProps> = ({
   setTurnInfoTxt,
   setTurnInfoState,
 }) => {
-  
   const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
     randomBoard[i] = [];
@@ -48,7 +47,7 @@ export const Board: React.FC<BoardProps> = ({
   const [board, setBoard] = useState(randomBoard);
   const columnHeaders = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   const rowHeaders = Array.from({ length: 11 }, (_, i) => i + 1);
-  
+
   const shipsData = [
     { id: "1", src: mast1 },
     { id: "2", src: mast2 },
@@ -60,7 +59,7 @@ export const Board: React.FC<BoardProps> = ({
     { id: "8", src: mast1 },
     { id: "9", src: mast2 },
   ];
-  
+
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
     if (yourTurn === true && opponentBoard) {
       const directions = [
@@ -258,9 +257,16 @@ export const Board: React.FC<BoardProps> = ({
       </Table>
       <Title>{!opponentBoard ? "Your fleet" : "Opponent fleet"}</Title>
       <Ships>
-      {shipsData.map((ship) => (
-    <ShipImage key={ship.id} src={ship.src} id={ship.id}/>
-  ))}
+        {shipsData.map((ship) => (
+          <ShipImage
+            key={ship.id}
+            src={ship.src}
+            id={ship.id}
+            style={
+              opponentBoard ? {} : { filter: "hue-rotate(270deg) contrast(2)" }
+            }
+          />
+        ))}
       </Ships>
     </SingleBoard>
   );

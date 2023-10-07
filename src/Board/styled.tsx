@@ -115,5 +115,4 @@ export const ShipImage = styled.img`
   transition: 500ms;
   height: 20px;
   width: auto;
-  filter: hue-rotate(270deg) contrast(2);
 `;

@@ -242,14 +242,12 @@ export const Board: React.FC<BoardProps> = ({
                   color={
                     opponentBoard
                       ? stateColorSwitcher(cell.state)
-                      : //: valueColorSwitcher(cell.value)
-                        stateColorSwitcher(cell.state)
+                      : valueColorSwitcher(cell.value, cell.state)
                   }
                   data-coordinates={`(${columnHeaders[columnIndex]}, ${
                     rowIndex + 1
                   })`}
                 >
-                  {cell.value}
                 </StyledCell>
               ))}
             </tr>

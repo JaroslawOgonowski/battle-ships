@@ -1,7 +1,7 @@
 export const stateColorSwitcher = (state: string) => {
   switch (state) {
     case "Initial":
-      return "#c7c1c1f8";
+      return "#100f0ff8";
     case "Hit":
       return "#e83c12f8";//hit
     case "Missed":

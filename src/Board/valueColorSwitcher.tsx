@@ -1,25 +1,113 @@
-export const valueColorSwitcher = (value: number) => {
+export const valueColorSwitcher = (value: number, state: string) => {
   switch (value) {
     case 0:
-      return "#000000f8"; //no ship
+      switch (state) {
+        case "initial":
+          return "#000000f8";
+        case "Missed":
+          return "#258153f8";
+        default:
+          return "#000000f8";
+      }
     case 1:
-      return "#36d64ef8"; //single
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 2:
-      return "#36e426f8"; //2
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 3:
-      return "#2ad513f8";
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 4:
-      return "#036408f8";
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 5:
-      return "#05350bf8";
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 6:
-      return "#397c42f8";
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 7:
-      return "#18ab15f8";
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 8:
-      return "#0a811af8";
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     case 9:
-      return "#339d13f8";
+      switch (state) {
+        case "initial":
+          return "#36e426f8";
+        case "Hit":
+          return "#e83c12f8";
+        case "Direct Hit":
+          return "#b11313f8";
+        default:
+          return "#36e426f8";
+      }
     default:
       return "#1c1919f8";
   }

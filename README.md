@@ -1,5 +1,10 @@
 # Battle ships project (under constuction) 🚧⚓
 
+## Ship's log, Day Nine:
+Yesterday, I had a break, and today when I returned to the code, connecting the active ship images that represent the board situation went smoothly. I also added a simple initial interface with the option to randomly relocate ships. I know it would be great to add manual placement with drag and drop, but unfortunately, I'm aware I don't have enough time for that. I've also started working on the rudimentary end screen, which will provide a basic summary: you won/lost. I would love to add a time skip feature for the entire gameplay, but it would require recording each move, and I won't have time for that either. As for ambitious ideas, it would be nice to save the current game state in local storage, and I might even add that. However, my main goal is to deliver a fully playable and optimized application, so I'm focusing entirely on that. Today, the original colors returned to the game, and I won't need previews of the value and state anymore. I did a lot of enjoyable visual work today, and the project is heading towards completion. Regardless of the results, I will continue working until I achieve satisfactory results.
+
+![Day 9]("./../public/Screenshot_9.png)
+![Day 9]("./../public/Screenshot_10.png)
 ## Ship's log, day Eight:
 I created ship graphics and added an array to hold their states. I've already thought through the whole function, but ran out of time to implement it. Tomorrow is a break, so I probably won't be able to add anything. I moved some of the gameField elements to the board to avoid code duplication and to have two nearly identical elements that differ mainly in the opponentBoard argument.
 

@@ -24,9 +24,9 @@ export const GameInterface: React.FC<GameInterfaceProps> = ({
 
   return (
     <Wrapper>
-      <InterfaceButton onClick={() => startGame()}>Start</InterfaceButton>
+      <InterfaceButton onClick={() => startGame()}>Start game ▶</InterfaceButton>
       <InterfaceButton onClick={() => reroll()}>
-        Reroll ships position
+        Reroll ships position ↻
       </InterfaceButton>
     </Wrapper>
   );

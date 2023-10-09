@@ -29,6 +29,7 @@ type BoardProps = {
   setTurnInfoState: React.Dispatch<React.SetStateAction<string>>;
   gameOn?: boolean;
   setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
+  setEndGame: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Board: React.FC<BoardProps> = ({
@@ -39,6 +40,7 @@ export const Board: React.FC<BoardProps> = ({
   setTurnInfoState,
   gameOn,
   setGameOn,
+  setEndGame,
 }) => {
   const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
@@ -241,6 +243,10 @@ export const Board: React.FC<BoardProps> = ({
     return () => {};
   }, [yourTurn, opponentBoard, gameOn]);
 
+  if (shipsData.every((ship) => ship.state === 1)) {
+    setEndGame(true);
+  };
+  
   return (
     <>
       <SingleBoard>
@@ -306,7 +312,7 @@ export const Board: React.FC<BoardProps> = ({
           </>
         ) : null}
       </SingleBoard>
-      {gameOn === false && !opponentBoard? (
+      {gameOn === false && !opponentBoard ? (
         <GameInterface
           setGameOn={setGameOn}
           board={randomBoard}

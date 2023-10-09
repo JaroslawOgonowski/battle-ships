@@ -26,6 +26,7 @@ type BoardProps = {
   setYourTurn: React.Dispatch<React.SetStateAction<boolean>>;
   setTurnInfoTxt: React.Dispatch<React.SetStateAction<string>>;
   setTurnInfoState: React.Dispatch<React.SetStateAction<string>>;
+  gameOn?: boolean;
 };
 
 export const Board: React.FC<BoardProps> = ({
@@ -34,6 +35,7 @@ export const Board: React.FC<BoardProps> = ({
   setYourTurn,
   setTurnInfoTxt,
   setTurnInfoState,
+  gameOn,
 }) => {
   const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
@@ -81,7 +83,15 @@ export const Board: React.FC<BoardProps> = ({
       const updatedBoard = [...board];
       const clickedSquare = updatedBoard[rowIndex][columnIndex];
 
-      hitCheck(rowIndex, columnIndex, updatedBoard, clickedSquare, setBoard, ships, setShips);
+      hitCheck(
+        rowIndex,
+        columnIndex,
+        updatedBoard,
+        clickedSquare,
+        setBoard,
+        ships,
+        setShips
+      );
       setBoard(updatedBoard);
       setYourTurn(false);
       setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex + 1}`);
@@ -185,7 +195,15 @@ export const Board: React.FC<BoardProps> = ({
     const { row: randomRow, col: randomColumn } = availableMoves[randomIndex];
 
     const clickedSquare = updatedBoard[randomRow][randomColumn];
-    hitCheck(randomRow, randomColumn, updatedBoard, clickedSquare, setBoard, ships, setShips);
+    hitCheck(
+      randomRow,
+      randomColumn,
+      updatedBoard,
+      clickedSquare,
+      setBoard,
+      ships,
+      setShips
+    );
     setBoard(updatedBoard);
     setTurnInfoTxt(`${columnHeaders[randomColumn]}${randomRow + 1}`);
     setTurnInfoState(`${updatedBoard[randomRow][randomColumn].state}`);
@@ -220,7 +238,16 @@ export const Board: React.FC<BoardProps> = ({
 
   return (
     <SingleBoard>
-      <Title>{opponentBoard ? "Attack stance" : "Defense stance"}</Title>
+      {gameOn ? (
+        <Title>{opponentBoard ? "Attack stance" : "Defense stance"}</Title>
+      ) : (
+        <>
+          <br />
+          <br />
+          <br />
+          <br />
+        </>
+      )}
       <Table style={{ filter: `brightness(${brightness})` }}>
         <thead>
           <tr>
@@ -247,28 +274,31 @@ export const Board: React.FC<BoardProps> = ({
                   data-coordinates={`(${columnHeaders[columnIndex]}, ${
                     rowIndex + 1
                   })`}
-                >
-                </StyledCell>
+                ></StyledCell>
               ))}
             </tr>
           ))}
         </TBody>
       </Table>
-      <Title>{!opponentBoard ? "Your fleet" : "Opponent fleet"}</Title>
-      <Ships>
-        {ships.map((ship) => (
-          <ShipImage
-            key={ship.id}
-            src={ship.src}
-            id={ship.id}
-            style={
-              ship.state === 0
-                ? {}
-                : { filter: "hue-rotate(270deg) contrast(2)" }
-            }
-          />
-        ))}
-      </Ships>
+      {gameOn ? (
+        <>
+          <Title>{!opponentBoard ? "Your fleet" : "Opponent fleet"}</Title>
+          <Ships>
+            {ships.map((ship) => (
+              <ShipImage
+                key={ship.id}
+                src={ship.src}
+                id={ship.id}
+                style={
+                  ship.state === 0
+                    ? {}
+                    : { filter: "hue-rotate(270deg) contrast(2)" }
+                }
+              />
+            ))}
+          </Ships>
+        </>
+      ) : null}
     </SingleBoard>
   );
 };

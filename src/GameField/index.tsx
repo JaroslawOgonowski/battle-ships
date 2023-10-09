@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Board } from "../Board";
 import { MainTitle, StyledGameField } from "./styled";
 import { TurnInfo } from "../TurnInfo";
-import { GameInterface } from "../GameInterface";
 
 export const GameField = () => {
   const [yourTurn, setYourTurn] = useState(true);
@@ -20,8 +19,8 @@ export const GameField = () => {
           setTurnInfoTxt={setTurnInfoTxt}
           setTurnInfoState={setTurnInfoState}
           gameOn={gameOn}
+          setGameOn={setGameOn}
         />
-        {gameOn === true ? null : <GameInterface gameOn={gameOn} setGameOn={setGameOn} />}
         {gameOn === true ? (
           <>
             <TurnInfo
@@ -35,6 +34,8 @@ export const GameField = () => {
               setTurnInfoTxt={setTurnInfoTxt}
               setTurnInfoState={setTurnInfoState}
               opponentBoard
+              gameOn={gameOn}
+              setGameOn={setGameOn}
             />
           </>
         ) : null}

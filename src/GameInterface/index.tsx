@@ -1,18 +1,33 @@
+
 import { InterfaceButton, Wrapper } from "./styled";
 
 type GameInterfaceProps = {
-  gameOn: boolean;
   setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
+  board: { value: number; state: string }[][];
+  setBoard: React.Dispatch<
+    React.SetStateAction<{ value: number; state: string }[][]>
+  >;
 };
 
 export const GameInterface: React.FC<GameInterfaceProps> = ({
-  gameOn,
   setGameOn,
+  board,
+  setBoard,
 }) => {
+  const startGame = () => {
+    setGameOn(true);
+  };
+
+  const reroll = () => {
+    setBoard(board);
+  }
+
   return (
     <Wrapper>
-      <InterfaceButton>Start</InterfaceButton>
-      <InterfaceButton>Reroll ships position</InterfaceButton>
+      <InterfaceButton onClick={() => startGame()}>Start</InterfaceButton>
+      <InterfaceButton onClick={() => reroll()}>
+        Reroll ships position
+      </InterfaceButton>
     </Wrapper>
   );
 };

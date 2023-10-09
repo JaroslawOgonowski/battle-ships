@@ -19,6 +19,7 @@ import mast2 from "./ships/2mast.png";
 import mast3 from "./ships/3mast.png";
 import mast4 from "./ships/4mast.png";
 import mast5 from "./ships/5mast.png";
+import { GameInterface } from "../GameInterface";
 
 type BoardProps = {
   opponentBoard?: boolean;
@@ -27,6 +28,7 @@ type BoardProps = {
   setTurnInfoTxt: React.Dispatch<React.SetStateAction<string>>;
   setTurnInfoState: React.Dispatch<React.SetStateAction<string>>;
   gameOn?: boolean;
+  setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Board: React.FC<BoardProps> = ({
@@ -36,6 +38,7 @@ export const Board: React.FC<BoardProps> = ({
   setTurnInfoTxt,
   setTurnInfoState,
   gameOn,
+  setGameOn,
 }) => {
   const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
@@ -222,7 +225,9 @@ export const Board: React.FC<BoardProps> = ({
 
   useEffect(() => {
     const updateBrightness = () => {
-      if (!opponentBoard && yourTurn) {
+      if (!gameOn) {
+        setBrightness(1);
+      } else if (!opponentBoard && yourTurn) {
         setBrightness(0.3);
       } else if (opponentBoard && !yourTurn) {
         setBrightness(0.3);
@@ -234,71 +239,82 @@ export const Board: React.FC<BoardProps> = ({
     };
     updateBrightness();
     return () => {};
-  }, [yourTurn, opponentBoard]);
+  }, [yourTurn, opponentBoard, gameOn]);
 
   return (
-    <SingleBoard>
-      {gameOn ? (
-        <Title>{opponentBoard ? "Attack stance" : "Defense stance"}</Title>
-      ) : (
-        <>
-          <br />
-          <br />
-          <br />
-          <br />
-        </>
-      )}
-      <Table style={{ filter: `brightness(${brightness})` }}>
-        <thead>
-          <tr>
-            <th></th>
-            {columnHeaders.map((header, index) => (
-              <TableHeader key={index}>{header}</TableHeader>
-            ))}
-          </tr>
-        </thead>
-        <TBody>
-          <Circle />
-          {board.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              <TableHeader>{rowHeaders[rowIndex]}</TableHeader>{" "}
-              {row.map((cell, columnIndex) => (
-                <StyledCell
-                  key={columnIndex}
-                  onClick={() => handleCellClick(rowIndex, columnIndex)}
-                  color={
-                    opponentBoard
-                      ? stateColorSwitcher(cell.state)
-                      : valueColorSwitcher(cell.value, cell.state)
-                  }
-                  data-coordinates={`(${columnHeaders[columnIndex]}, ${
-                    rowIndex + 1
-                  })`}
-                ></StyledCell>
+    <>
+      <SingleBoard>
+        {gameOn ? (
+          <Title>{opponentBoard ? "Attack stance" : "Defense stance"}</Title>
+        ) : (
+          <>
+            <br />
+            <br />
+            <br />
+            <br />
+          </>
+        )}
+        <Table style={{ filter: `brightness(${brightness})` }}>
+          <thead>
+            <tr>
+              <th></th>
+              {columnHeaders.map((header, index) => (
+                <TableHeader key={index}>{header}</TableHeader>
               ))}
             </tr>
-          ))}
-        </TBody>
-      </Table>
-      {gameOn ? (
-        <>
-          <Title>{!opponentBoard ? "Your fleet" : "Opponent fleet"}</Title>
-          <Ships>
-            {ships.map((ship) => (
-              <ShipImage
-                key={ship.id}
-                src={ship.src}
-                id={ship.id}
-                style={
-                  ship.state === 0
-                    ? {}
-                    : { filter: "hue-rotate(270deg) contrast(2)" }
-                }
-              />
+          </thead>
+          <TBody>
+            <Circle />
+            {board.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                <TableHeader>{rowHeaders[rowIndex]}</TableHeader>{" "}
+                {row.map((cell, columnIndex) => (
+                  <StyledCell
+                    key={columnIndex}
+                    onClick={() => handleCellClick(rowIndex, columnIndex)}
+                    color={
+                      opponentBoard
+                        ? stateColorSwitcher(cell.state)
+                        : valueColorSwitcher(cell.value, cell.state)
+                    }
+                    data-coordinates={`(${columnHeaders[columnIndex]}, ${
+                      rowIndex + 1
+                    })`}
+                  ></StyledCell>
+                ))}
+              </tr>
             ))}
-          </Ships>
-        </>
-      ) : null}
-    </SingleBoard>
+          </TBody>
+        </Table>
+        {gameOn ? (
+          <>
+            <Title>{!opponentBoard ? "Your fleet" : "Opponent fleet"}</Title>
+            <Ships>
+              {ships.map((ship) => (
+                <ShipImage
+                  key={ship.id}
+                  src={ship.src}
+                  id={ship.id}
+                  style={
+                    ship.state === 0
+                      ? {}
+                      : { filter: "hue-rotate(270deg) contrast(2)" }
+                  }
+                />
+              ))}
+            </Ships>
+          </>
+        ) : null}
+      </SingleBoard>
+      {gameOn === false && !opponentBoard? (
+        <GameInterface
+          setGameOn={setGameOn}
+          board={randomBoard}
+          setBoard={setBoard}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 };

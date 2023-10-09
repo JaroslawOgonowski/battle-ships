@@ -49,16 +49,17 @@ export const Board: React.FC<BoardProps> = ({
   const rowHeaders = Array.from({ length: 11 }, (_, i) => i + 1);
 
   const shipsData = [
-    { id: "1", src: mast1 },
-    { id: "2", src: mast2 },
-    { id: "3", src: mast3 },
-    { id: "4", src: mast4 },
-    { id: "5", src: mast5 },
-    { id: "6", src: mast1 },
-    { id: "7", src: mast1 },
-    { id: "8", src: mast1 },
-    { id: "9", src: mast2 },
+    { id: "1", src: mast5, state: 0 },
+    { id: "2", src: mast4, state: 0 },
+    { id: "3", src: mast2, state: 0 },
+    { id: "4", src: mast2, state: 0 },
+    { id: "5", src: mast3, state: 0 },
+    { id: "6", src: mast3, state: 0 },
+    { id: "7", src: mast1, state: 0 },
+    { id: "8", src: mast1, state: 0 },
+    { id: "9", src: mast1, state: 0 },
   ];
+  const [ships, setShips] = useState(shipsData);
 
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
     if (yourTurn === true && opponentBoard) {
@@ -80,7 +81,7 @@ export const Board: React.FC<BoardProps> = ({
       const updatedBoard = [...board];
       const clickedSquare = updatedBoard[rowIndex][columnIndex];
 
-      hitCheck(rowIndex, columnIndex, updatedBoard, clickedSquare, setBoard);
+      hitCheck(rowIndex, columnIndex, updatedBoard, clickedSquare, setBoard, ships, setShips);
       setBoard(updatedBoard);
       setYourTurn(false);
       setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex + 1}`);
@@ -184,7 +185,7 @@ export const Board: React.FC<BoardProps> = ({
     const { row: randomRow, col: randomColumn } = availableMoves[randomIndex];
 
     const clickedSquare = updatedBoard[randomRow][randomColumn];
-    hitCheck(randomRow, randomColumn, updatedBoard, clickedSquare, setBoard);
+    hitCheck(randomRow, randomColumn, updatedBoard, clickedSquare, setBoard, ships, setShips);
     setBoard(updatedBoard);
     setTurnInfoTxt(`${columnHeaders[randomColumn]}${randomRow + 1}`);
     setTurnInfoState(`${updatedBoard[randomRow][randomColumn].state}`);
@@ -257,13 +258,15 @@ export const Board: React.FC<BoardProps> = ({
       </Table>
       <Title>{!opponentBoard ? "Your fleet" : "Opponent fleet"}</Title>
       <Ships>
-        {shipsData.map((ship) => (
+        {ships.map((ship) => (
           <ShipImage
             key={ship.id}
             src={ship.src}
             id={ship.id}
             style={
-              opponentBoard ? {} : { filter: "hue-rotate(270deg) contrast(2)" }
+              ship.state === 0
+                ? {}
+                : { filter: "hue-rotate(270deg) contrast(2)" }
             }
           />
         ))}

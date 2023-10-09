@@ -5,6 +5,20 @@ export const hitCheck = (
   clickedSquare: { value: number; state: string },
   setBoard: React.Dispatch<
     React.SetStateAction<{ value: number; state: string }[][]>
+  >,
+  ships: {
+    id: string;
+    src: string;
+    state: number;
+  }[],
+  setShips: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: string;
+        src: string;
+        state: number;
+      }[]
+    >
   >
 ) => {
   const directions = [
@@ -52,6 +66,11 @@ export const hitCheck = (
           }
         }
       }
+      // Update the ships state when they are hit
+      const updatedShips = ships.map((ship) =>
+        ship.id === targetValue.toString() ? { ...ship, state: 1 } : ship
+      );
+      setShips(updatedShips);
     }
     setBoard(updatedBoard);
   } else {

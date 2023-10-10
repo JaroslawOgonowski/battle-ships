@@ -1,7 +1,8 @@
 import { MainTitle } from "../GameField/styled";
 import { InterfaceButton } from "../GameInterface/styled";
-import { EndGameMsgLose, EndGameMsgWin, Wrapper } from "./styled";
-
+import { EndGameMsgLose, EndGameMsgWin, Image, Wrapper } from "./styled";
+import winImg from "./images/cruise-outline-svgrepo-com.svg"
+import loseImg from "./images/ship-wreck-svgrepo-com.svg"
 type EndGameProps = {
   yourTurn: boolean;
 };
@@ -18,9 +19,8 @@ const loseMsg = [
   "Defeat is bitter, but it's a chance to learn and come back stronger.",
   "Your opponent's cunning strategy led to your downfall.",
   "It's a tough loss, but remember, every great captain faces setbacks.",
-  "The sea can be unforgiving. Your ships lie in ruins."
+  "The sea can be unforgiving. Your ships lie in ruins.",
 ];
-
 
 const winMsg = [
   "You sank all of your opponent's ships! Congratulations, you win!",
@@ -32,11 +32,15 @@ const winMsg = [
   "You've conquered the seas and emerged as the ultimate naval commander.",
   "A resounding victory! Your opponent's ships are nothing but debris now.",
   "It's a clear win! Your opponent's fleet is no match for your skill.",
-  "You've proven yourself as the master of the ocean. Victory is yours!"
+  "You've proven yourself as the master of the ocean. Victory is yours!",
 ];
 
 const randomLoseIndex = Math.floor(Math.random() * loseMsg.length);
 const randomWinIndex = Math.floor(Math.random() * winMsg.length);
+
+function refreshPage() {
+  window.location.reload();
+}
 
 export const Endgame: React.FC<EndGameProps> = ({ yourTurn }) => {
   return (
@@ -48,11 +52,17 @@ export const Endgame: React.FC<EndGameProps> = ({ yourTurn }) => {
         <EndGameMsgLose>You Lose</EndGameMsgLose>
       )}
       {yourTurn ? (
+        <>
         <EndGameMsgWin>{winMsg[randomWinIndex]}</EndGameMsgWin>
+        <Image src={winImg}/></>
       ) : (
+        <>
         <EndGameMsgLose>{loseMsg[randomLoseIndex]}</EndGameMsgLose>
+        <Image src={loseImg}/></>
       )}
-      <InterfaceButton>Play Again ⁜</InterfaceButton>
+      <InterfaceButton onClick={() => refreshPage()}>
+        Play Again ⁜
+      </InterfaceButton>
     </Wrapper>
   );
 };

@@ -8,12 +8,14 @@ export const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 export const EndGameMsgWin = styled.div`
-  margin-top: 5vh;
+  width: 100%;
+  text-align: center;
+  margin: 2vh 0 2vh 0;
   font-size: 2vw;
   color: #32b012;
-`
+`;
 export const EndGameMsgLose = styled(EndGameMsgWin)`
   color: #81090d;
-`
+`;

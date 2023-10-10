@@ -5,11 +5,11 @@ import { TurnInfo } from "../TurnInfo";
 import { Endgame } from "../EndGame";
 
 export const GameField = () => {
-  const [yourTurn, setYourTurn] = useState(true);
+  const [yourTurn, setYourTurn] = useState(false);
   const [turnInfoTxt, setTurnInfoTxt] = useState("");
   const [turnInfoState, setTurnInfoState] = useState("");
   const [gameOn, setGameOn] = useState(false);
-  const [endGame, setEndGame] = useState(false);
+  const [endGame, setEndGame] = useState(true);
 
   if (endGame === false)
     return (

@@ -27,6 +27,24 @@ const scaleUp = keyframes`
   }
 `;
 
+const scaleUpMin = keyframes`
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  95% {
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+  }
+
+  100%{
+    visibility: 0;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+  }
+`;
+
 export const Circle = styled.div`
   width: 1px;
   height: 1px;
@@ -39,6 +57,10 @@ export const Circle = styled.div`
   animation: ${scaleUp} 3s ease-in-out infinite;
   background: none;
   pointer-events: none;
+  
+  @media (max-width: 420px) {
+    animation: ${scaleUpMin} 3s ease-in-out infinite;
+  }
 `;
 
 export const TableHeader = styled.th`
@@ -48,6 +70,11 @@ export const TableHeader = styled.th`
   background-color: rgb(0, 0, 0);
   color: #34f516f8;
   text-align: center;
+
+  @media (max-width: 420px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const StyledCell = styled.td`
@@ -70,12 +97,17 @@ export const StyledCell = styled.td`
       top: 100%;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #000;
-      color: #fff;
+      background-color: #000000;
+      color: #e8e8e8;
       padding: 2px 4px;
       font-size: 12px;
       border-radius: 4px;
     }
+  }
+
+  @media (max-width: 420px) {
+    width: 20px;
+    height: 20px;
   }
 `;
 
@@ -84,12 +116,15 @@ export const CellContent = styled.td`
 `;
 
 export const SingleBoard = styled.div`
-  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 2vh;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 1100px) {
+    margin-bottom: 10vh;
+  }
 `;
 
 export const Title = styled.h2`
@@ -99,10 +134,15 @@ export const Title = styled.h2`
   color: #2ad513f8;
   text-align: center;
   text-transform: uppercase;
+
+  @media (max-width: 900px) {
+    font-size: 18px;
+    margin-top: 5vh;
+  }
 `;
 
 export const Ships = styled.div`
-  width: 100%;
+  width: 85%;
   display: flex;
   gap: 8px;
   align-items: center;

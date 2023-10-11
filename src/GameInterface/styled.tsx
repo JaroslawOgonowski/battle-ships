@@ -5,6 +5,13 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3vh;
+  
+  @media (max-width: 1100px) {
+    margin-top: -5vh;
+  }
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `
 
 export const InterfaceButton =  styled.button`
@@ -18,5 +25,9 @@ cursor: pointer;
 
   &:hover{
     color: #34de1af8;
+  }
+
+  @media (max-width: 900px) {
+    font-size: 18px;
   }
 `

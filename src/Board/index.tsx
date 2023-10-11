@@ -95,7 +95,8 @@ export const Board: React.FC<BoardProps> = ({
         clickedSquare,
         setBoard,
         ships,
-        setShips
+        setShips,
+        setEndGame
       );
       setBoard(updatedBoard);
       setYourTurn(false);
@@ -207,7 +208,8 @@ export const Board: React.FC<BoardProps> = ({
       clickedSquare,
       setBoard,
       ships,
-      setShips
+      setShips,
+      setEndGame
     );
     setBoard(updatedBoard);
     setTurnInfoTxt(`${columnHeaders[randomColumn]}${randomRow + 1}`);
@@ -243,10 +245,12 @@ export const Board: React.FC<BoardProps> = ({
     return () => {};
   }, [yourTurn, opponentBoard, gameOn]);
 
-  if (shipsData.every((ship) => ship.state === 1)) {
-    setEndGame(true);
-  };
-  
+  useEffect(() => {
+    if (ships.every((ship) => ship.state === 1)) {
+      setEndGame(true);
+    }
+  }, [ships]);
+
   return (
     <>
       <SingleBoard>
@@ -286,7 +290,9 @@ export const Board: React.FC<BoardProps> = ({
                     data-coordinates={`(${columnHeaders[columnIndex]}, ${
                       rowIndex + 1
                     })`}
-                  ></StyledCell>
+                  >
+                    {cell.value}
+                  </StyledCell>
                 ))}
               </tr>
             ))}

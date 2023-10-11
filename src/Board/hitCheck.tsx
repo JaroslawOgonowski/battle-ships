@@ -19,7 +19,8 @@ export const hitCheck = (
         state: number;
       }[]
     >
-  >
+  >,
+  setEndGame: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const directions = [
     [0, 1],

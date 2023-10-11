@@ -46,12 +46,12 @@ export const Endgame: React.FC<EndGameProps> = ({ yourTurn }) => {
   return (
     <Wrapper>
       <MainTitle>📡 Battle ships ⚓</MainTitle>
-      {yourTurn ? (
+      {!yourTurn ? (
         <EndGameMsgWin>You Win</EndGameMsgWin>
       ) : (
         <EndGameMsgLose>You Lose</EndGameMsgLose>
       )}
-      {yourTurn ? (
+      {!yourTurn ? (
         <>
         <EndGameMsgWin>{winMsg[randomWinIndex]}</EndGameMsgWin>
         <Image src={winImg}/></>

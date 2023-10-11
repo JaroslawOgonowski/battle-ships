@@ -9,7 +9,7 @@ export const GameField = () => {
   const [turnInfoTxt, setTurnInfoTxt] = useState("");
   const [turnInfoState, setTurnInfoState] = useState("");
   const [gameOn, setGameOn] = useState(false);
-  const [endGame, setEndGame] = useState(true);
+  const [endGame, setEndGame] = useState(false);
 
   if (endGame === false)
     return (

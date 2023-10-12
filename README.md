@@ -1,5 +1,22 @@
-# Battle ships project (under constuction) 🚧⚓
+# Battle ships project ⚓ v.1.0.0
 
+## Ship's log, summary:
+The game now has its beginning and end, and I've added basic responsiveness, allowing it to be played even on the Galaxy Fold. The fundamental stage of application development ends here. The project has brought me a lot of joy and continuous knowledge. Although it's not very extensive, I'd be happy to work on it further in my spare time.
+
+What I would like to do:
+- Code quality improvement: The `hitCheck` function iterates three times over the entire array and once over adjacent fields. I would like to optimize this. There are a few other similar issues, but there's only one problem: 🕑.
+
+- Save/load in local storage: This would require restructuring the game's ending (currently, I simply refresh the window), but it's not particularly difficult. I just lack the time.
+
+- Expand AI: At the moment, when no ships are hit, the AI's choice of the next target is entirely random. I'd like to analyze the number of remaining empty fields in the vertical and horizontal directions and identify which ships have not been sunk yet. This way, I can avoid shooting at individual cells when I only need to find a two-cell ship, for example. Over time, I'd also like to add some tactics to the opponent, such as only targeting places where a five-cell ship could fit if it hasn't been sunk yet.
+
+- Customizable gameplay: Allowing players to choose which ships participate in the game and manually placing the ships.
+
+- Visual improvements: Enhancing the visual design, making it more responsive, and better arranging the elements on the screen.
+
+![Summary]("./../public/Screenshot_11.png)
+![Summary]("./../public/Screenshot_12.png)
+![Summary]("./../public/Screenshot_13.png)
 ## Ship's log, Day Nine:
 Yesterday, I had a break, and today when I returned to the code, connecting the active ship images that represent the board situation went smoothly. I also added a simple initial interface with the option to randomly relocate ships. I know it would be great to add manual placement with drag and drop, but unfortunately, I'm aware I don't have enough time for that. I've also started working on the rudimentary end screen, which will provide a basic summary: you won/lost. I would love to add a time skip feature for the entire gameplay, but it would require recording each move, and I won't have time for that either. As for ambitious ideas, it would be nice to save the current game state in local storage, and I might even add that. However, my main goal is to deliver a fully playable and optimized application, so I'm focusing entirely on that. Today, the original colors returned to the game, and I won't need previews of the value and state anymore. I did a lot of enjoyable visual work today, and the project is heading towards completion. Regardless of the results, I will continue working until I achieve satisfactory results.
 

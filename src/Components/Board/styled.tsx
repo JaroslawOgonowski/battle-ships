@@ -45,7 +45,7 @@ const scaleUpMin = keyframes`
   }
 `;
 
-export const Circle = styled.div`
+export const Circle = styled.tr`
   width: 1px;
   height: 1px;
   border: 5px dotted #931206;

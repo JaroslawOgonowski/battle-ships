@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Circle,
   ShipImage,
@@ -70,17 +70,6 @@ export const Board: React.FC<BoardProps> = ({
 
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
     if (yourTurn === true && opponentBoard) {
-      const directions = [
-        [0, 1],
-        [0, -1],
-        [-1, 0],
-        [1, 0],
-        [1, 1],
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-      ];
-
       if (board[rowIndex][columnIndex].state !== "Initial") {
         return;
       }
@@ -107,7 +96,7 @@ export const Board: React.FC<BoardProps> = ({
 
   const [brightness, setBrightness] = useState(0.3);
 
-  const opponentMove = () => {
+  function opponentMove() {
     const updatedBoard = [...board];
     let hitCount = 0;
     let hitCoordinates: { row: number; col: number }[] = [];
@@ -214,7 +203,7 @@ export const Board: React.FC<BoardProps> = ({
     setBoard(updatedBoard);
     setTurnInfoTxt(`${columnHeaders[randomColumn]}${randomRow + 1}`);
     setTurnInfoState(`${updatedBoard[randomRow][randomColumn].state}`);
-  };
+  }
 
   useEffect(() => {
     if (!yourTurn && !opponentBoard) {
@@ -225,7 +214,7 @@ export const Board: React.FC<BoardProps> = ({
 
       return () => clearTimeout(timeoutId);
     }
-  }, [yourTurn, opponentBoard]);
+  }, [yourTurn, opponentBoard, setYourTurn]);
 
   useEffect(() => {
     const updateBrightness = () => {
@@ -247,9 +236,12 @@ export const Board: React.FC<BoardProps> = ({
 
   useEffect(() => {
     if (ships.every((ship) => ship.state === 1)) {
-      setEndGame(true);
+      const timeout2Id = setTimeout(() => {
+        setEndGame(true);
+      }, 1000);
+      return () => clearTimeout(timeout2Id);
     }
-  }, [ships]);
+  }, [ships, setEndGame]);
 
   return (
     <>
@@ -277,7 +269,7 @@ export const Board: React.FC<BoardProps> = ({
             <Circle />
             {board.map((row, rowIndex) => (
               <tr key={rowIndex}>
-                <TableHeader>{rowHeaders[rowIndex]}</TableHeader>{" "}
+                <TableHeader>{rowHeaders[rowIndex]}</TableHeader>
                 {row.map((cell, columnIndex) => (
                   <StyledCell
                     key={columnIndex}
@@ -290,8 +282,7 @@ export const Board: React.FC<BoardProps> = ({
                     data-coordinates={`(${columnHeaders[columnIndex]}, ${
                       rowIndex + 1
                     })`}
-                  >
-                  </StyledCell>
+                  ></StyledCell>
                 ))}
               </tr>
             ))}

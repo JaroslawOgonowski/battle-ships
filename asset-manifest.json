@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/battle-ships/static/js/main.30b31973.js",
+    "main.js": "/battle-ships/static/js/main.03c945de.js",
     "static/js/787.bae0b24c.chunk.js": "/battle-ships/static/js/787.bae0b24c.chunk.js",
     "static/media/cruise-outline-svgrepo-com.svg": "/battle-ships/static/media/cruise-outline-svgrepo-com.f4ef4424d2b031fa9e2386db17df44d7.svg",
     "static/media/ship-wreck-svgrepo-com.svg": "/battle-ships/static/media/ship-wreck-svgrepo-com.4eaf18d790ac7a2c05fa89af577b8d26.svg",
     "index.html": "/battle-ships/index.html",
-    "main.30b31973.js.map": "/battle-ships/static/js/main.30b31973.js.map",
+    "main.03c945de.js.map": "/battle-ships/static/js/main.03c945de.js.map",
     "787.bae0b24c.chunk.js.map": "/battle-ships/static/js/787.bae0b24c.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.30b31973.js"
+    "static/js/main.03c945de.js"
   ]
 }

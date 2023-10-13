@@ -14,11 +14,11 @@ import { stateColorSwitcher } from "./stateColorSwitcher";
 import { valueColorSwitcher } from "./valueColorSwitcher";
 import { placeShips } from "./placeShips";
 import { hitCheck } from "./hitCheck";
-import mast1 from "./ships/1mast.png";
-import mast2 from "./ships/2mast.png";
-import mast3 from "./ships/3mast.png";
-import mast4 from "./ships/4mast.png";
-import mast5 from "./ships/5mast.png";
+import mast1 from "./images/1mast.png";
+import mast2 from "./images/2mast.png";
+import mast3 from "./images/3mast.png";
+import mast4 from "./images/4mast.png";
+import mast5 from "./images/5mast.png";
 import { GameInterface } from "../GameInterface";
 
 type BoardProps = {
@@ -30,6 +30,8 @@ type BoardProps = {
   gameOn?: boolean;
   setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
   setEndGame: React.Dispatch<React.SetStateAction<boolean>>;
+  endGame: boolean;
+  setShowEndGame: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Board: React.FC<BoardProps> = ({
@@ -41,6 +43,8 @@ export const Board: React.FC<BoardProps> = ({
   gameOn,
   setGameOn,
   setEndGame,
+  endGame,
+  setShowEndGame,
 }) => {
   const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
@@ -88,9 +92,11 @@ export const Board: React.FC<BoardProps> = ({
         setEndGame
       );
       setBoard(updatedBoard);
-      setYourTurn(false);
       setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex + 1}`);
       setTurnInfoState(`${updatedBoard[rowIndex][columnIndex].state}`);
+      if (endGame === false) {
+        setYourTurn(false);
+      }
     } else return;
   };
 
@@ -209,16 +215,20 @@ export const Board: React.FC<BoardProps> = ({
     if (!yourTurn && !opponentBoard) {
       const timeoutId = setTimeout(() => {
         opponentMove();
-        setYourTurn(true);
-      }, 4000);
-
+        const timeout2Id = setTimeout(() => {
+          if (endGame === false) {
+            setYourTurn(true);
+          }
+        }, 1000);
+        return () => clearTimeout(timeout2Id);
+      }, 1000);
       return () => clearTimeout(timeoutId);
     }
   }, [yourTurn, opponentBoard, setYourTurn]);
 
   useEffect(() => {
     const updateBrightness = () => {
-      if (!gameOn) {
+      if (!gameOn && !endGame) {
         setBrightness(1);
       } else if (!opponentBoard && yourTurn) {
         setBrightness(0.3);
@@ -236,8 +246,9 @@ export const Board: React.FC<BoardProps> = ({
 
   useEffect(() => {
     if (ships.every((ship) => ship.state === 1)) {
+      setEndGame(true);
       const timeout2Id = setTimeout(() => {
-        setEndGame(true);
+        setShowEndGame(true);
       }, 1000);
       return () => clearTimeout(timeout2Id);
     }
@@ -282,7 +293,9 @@ export const Board: React.FC<BoardProps> = ({
                     data-coordinates={`(${columnHeaders[columnIndex]}, ${
                       rowIndex + 1
                     })`}
-                  ></StyledCell>
+                  >
+                    {cell.value}
+                  </StyledCell>
                 ))}
               </tr>
             ))}

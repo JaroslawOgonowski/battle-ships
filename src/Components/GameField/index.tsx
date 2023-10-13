@@ -10,8 +10,9 @@ export const GameField = () => {
   const [turnInfoState, setTurnInfoState] = useState("");
   const [gameOn, setGameOn] = useState(false);
   const [endGame, setEndGame] = useState(false);
-
-  if (endGame === false)
+  const [showEndGame, setShowEndGame] = useState(false);
+  
+  if (showEndGame === false)
     return (
       <>
         <MainTitle>📡 Battle ships ⚓</MainTitle>
@@ -24,6 +25,8 @@ export const GameField = () => {
             gameOn={gameOn}
             setGameOn={setGameOn}
             setEndGame={setEndGame}
+            endGame={endGame}
+            setShowEndGame={setShowEndGame}
           />
           {gameOn === true ? (
             <>
@@ -41,11 +44,13 @@ export const GameField = () => {
                 gameOn={gameOn}
                 setGameOn={setGameOn}
                 setEndGame={setEndGame}
+                endGame={endGame}
+                setShowEndGame={setShowEndGame}
               />
             </>
           ) : null}
         </StyledGameField>
       </>
     );
-  else return <Endgame yourTurn={yourTurn} />;
+  else return <Endgame showEndGame={showEndGame} yourTurn={yourTurn} />;
 };

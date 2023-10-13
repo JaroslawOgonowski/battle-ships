@@ -1,8 +1,10 @@
 import styled, { keyframes } from "styled-components";
+import cursor from "./images/pngegg.png"
 
 export const Table = styled.table`
   transition: 500ms;
   border-collapse: collapse;
+  cursor: url(${cursor}) 25 25, auto;
 `;
 
 export const TBody = styled.tbody`
@@ -78,7 +80,6 @@ export const TableHeader = styled.th`
 `;
 
 export const StyledCell = styled.td`
-  cursor: pointer;
   width: 30px;
   height: 30px;
   transition: 500ms;

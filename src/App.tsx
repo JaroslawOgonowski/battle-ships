@@ -1,4 +1,4 @@
-import { GameField } from "./GameField";
+import { GameField } from "./Components/GameField";
 import { GlobalStyle } from "./GlobalStyles";
 
 function App() {

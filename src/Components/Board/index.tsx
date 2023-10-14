@@ -284,7 +284,6 @@ export const Board: React.FC<BoardProps> = ({
                       rowIndex + 1
                     })`}
                   >
-                    {cell.value}
                   </StyledCell>
                 ))}
               </tr>

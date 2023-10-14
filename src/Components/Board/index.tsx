@@ -31,7 +31,6 @@ type BoardProps = {
   setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
   setEndGame: React.Dispatch<React.SetStateAction<boolean>>;
   endGame: boolean;
-  setShowEndGame: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Board: React.FC<BoardProps> = ({
@@ -43,8 +42,7 @@ export const Board: React.FC<BoardProps> = ({
   gameOn,
   setGameOn,
   setEndGame,
-  endGame,
-  setShowEndGame,
+  endGame
 }) => {
   const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
@@ -72,6 +70,12 @@ export const Board: React.FC<BoardProps> = ({
   ];
   const [ships, setShips] = useState(shipsData);
 
+  useEffect(() => {
+    if (ships.every((ship) => ship.state === 1)) {
+      setEndGame(true);
+    }
+  }, [ships]);
+
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
     if (yourTurn === true && opponentBoard) {
       if (board[rowIndex][columnIndex].state !== "Initial") {
@@ -94,12 +98,11 @@ export const Board: React.FC<BoardProps> = ({
       setBoard(updatedBoard);
       setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex + 1}`);
       setTurnInfoState(`${updatedBoard[rowIndex][columnIndex].state}`);
-      if (endGame === false) {
+      if (!endGame) {
         setYourTurn(false);
       }
     } else return;
   };
-
   const [brightness, setBrightness] = useState(0.3);
 
   function opponentMove() {
@@ -212,23 +215,20 @@ export const Board: React.FC<BoardProps> = ({
   }
 
   useEffect(() => {
-    if (!yourTurn && !opponentBoard) {
+    if (!yourTurn && !opponentBoard && !endGame) {
       const timeoutId = setTimeout(() => {
         opponentMove();
-        const timeout2Id = setTimeout(() => {
           if (endGame === false) {
             setYourTurn(true);
           }
-        }, 1000);
-        return () => clearTimeout(timeout2Id);
-      }, 1000);
+      }, 2500);
       return () => clearTimeout(timeoutId);
     }
   }, [yourTurn, opponentBoard, setYourTurn]);
 
   useEffect(() => {
     const updateBrightness = () => {
-      if (!gameOn && !endGame) {
+      if (!gameOn) {
         setBrightness(1);
       } else if (!opponentBoard && yourTurn) {
         setBrightness(0.3);
@@ -243,16 +243,6 @@ export const Board: React.FC<BoardProps> = ({
     updateBrightness();
     return () => {};
   }, [yourTurn, opponentBoard, gameOn]);
-
-  useEffect(() => {
-    if (ships.every((ship) => ship.state === 1)) {
-      setEndGame(true);
-      const timeout2Id = setTimeout(() => {
-        setShowEndGame(true);
-      }, 1000);
-      return () => clearTimeout(timeout2Id);
-    }
-  }, [ships, setEndGame]);
 
   return (
     <>

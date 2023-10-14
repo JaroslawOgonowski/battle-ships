@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { MainTitle } from "../GameField/styled";
 import { InterfaceButton } from "../GameInterface/styled";
 import { EndGameMsgLose, EndGameMsgWin, Image, Wrapper } from "./styled";
@@ -6,7 +5,6 @@ import winImg from "./images/cruise-outline-svgrepo-com.svg";
 import loseImg from "./images/ship-wreck-svgrepo-com.svg";
 type EndGameProps = {
   yourTurn: boolean;
-  showEndGame: boolean;
 };
 
 const loseMsg = [
@@ -44,10 +42,7 @@ function refreshPage() {
   window.location.reload();
 }
 
-export const Endgame: React.FC<EndGameProps> = ({ yourTurn, showEndGame }) => {
-  if (!showEndGame) {
-    return null;
-  }
+export const Endgame: React.FC<EndGameProps> = ({ yourTurn }) => {
 
   return (
     <Wrapper>

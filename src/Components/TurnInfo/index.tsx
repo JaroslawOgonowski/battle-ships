@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Content, Turn, Wrapper } from "./styled";
 
 type TurnInfoProps = {

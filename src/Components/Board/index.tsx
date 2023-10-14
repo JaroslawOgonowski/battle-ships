@@ -14,13 +14,9 @@ import { stateColorSwitcher } from "./stateColorSwitcher";
 import { valueColorSwitcher } from "./valueColorSwitcher";
 import { placeShips } from "./placeShips";
 import { hitCheck } from "./hitCheck";
-import mast1 from "./images/1mast.png";
-import mast2 from "./images/2mast.png";
-import mast3 from "./images/3mast.png";
-import mast4 from "./images/4mast.png";
-import mast5 from "./images/5mast.png";
 import { GameInterface } from "../GameInterface";
 import { opponentMove } from "./oponentMove";
+import { shipsData } from "./shipsData";
 
 type BoardProps = {
   opponentBoard?: boolean;
@@ -32,6 +28,20 @@ type BoardProps = {
   setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
   setEndGame: React.Dispatch<React.SetStateAction<boolean>>;
   endGame: boolean;
+  stats: {
+    playerHits: number;
+    playerMissed: number;
+    opponentHits: number;
+    opponentMissed: number;
+  };
+  setStats: React.Dispatch<
+    React.SetStateAction<{
+      playerHits: number;
+      playerMissed: number;
+      opponentHits: number;
+      opponentMissed: number;
+    }>
+  >;
 };
 
 export const Board: React.FC<BoardProps> = ({
@@ -44,6 +54,8 @@ export const Board: React.FC<BoardProps> = ({
   setGameOn,
   setEndGame,
   endGame,
+  stats,
+  setStats,
 }) => {
   const randomBoard: { value: number; state: string }[][] = [];
   for (let i = 0; i < 10; i++) {
@@ -57,18 +69,6 @@ export const Board: React.FC<BoardProps> = ({
   const [board, setBoard] = useState(randomBoard);
   const columnHeaders = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   const rowHeaders = Array.from({ length: 11 }, (_, i) => i + 1);
-
-  const shipsData = [
-    { id: "1", src: mast5, state: 0 },
-    { id: "2", src: mast4, state: 0 },
-    { id: "3", src: mast2, state: 0 },
-    { id: "4", src: mast2, state: 0 },
-    { id: "5", src: mast3, state: 0 },
-    { id: "6", src: mast3, state: 0 },
-    { id: "7", src: mast1, state: 0 },
-    { id: "8", src: mast1, state: 0 },
-    { id: "9", src: mast1, state: 0 },
-  ];
   const [ships, setShips] = useState(shipsData);
 
   useEffect(() => {
@@ -94,8 +94,12 @@ export const Board: React.FC<BoardProps> = ({
         setBoard,
         ships,
         setShips,
-        setEndGame
+        stats.playerHits,
+        stats.playerMissed,
+        setStats,
+        yourTurn
       );
+
       setBoard(updatedBoard);
       setTurnInfoTxt(`${columnHeaders[columnIndex]}${rowIndex + 1}`);
       setTurnInfoState(`${updatedBoard[rowIndex][columnIndex].state}`);
@@ -114,10 +118,12 @@ export const Board: React.FC<BoardProps> = ({
           setBoard,
           ships,
           setShips,
-          setEndGame,
           setTurnInfoTxt,
           setTurnInfoState,
-          columnHeaders
+          columnHeaders,
+          stats,
+          setStats,
+          yourTurn
         );
         if (endGame === false) {
           setYourTurn(true);
@@ -128,20 +134,17 @@ export const Board: React.FC<BoardProps> = ({
   }, [yourTurn, opponentBoard, setYourTurn]);
 
   useEffect(() => {
-    const updateBrightness = () => {
-      if (!gameOn) {
-        setBrightness(1);
-      } else if (!opponentBoard && yourTurn) {
-        setBrightness(0.3);
-      } else if (opponentBoard && !yourTurn) {
-        setBrightness(0.3);
-      } else if (opponentBoard && yourTurn) {
-        setBrightness(1);
-      } else if (!opponentBoard && !yourTurn) {
-        setBrightness(1);
-      }
-    };
-    updateBrightness();
+    if (!gameOn) {
+      setBrightness(1);
+    } else if (!opponentBoard && yourTurn) {
+      setBrightness(0.3);
+    } else if (opponentBoard && !yourTurn) {
+      setBrightness(0.3);
+    } else if (opponentBoard && yourTurn) {
+      setBrightness(1);
+    } else if (!opponentBoard && !yourTurn) {
+      setBrightness(1);
+    }
     return () => {};
   }, [yourTurn, opponentBoard, gameOn]);
 

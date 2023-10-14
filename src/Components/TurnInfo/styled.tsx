@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 20%;
+  max-width: 30%;
+  width: 25%;
   height: 60vh;
   background-color: black;
   align-self: flex-start;
@@ -38,5 +39,19 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   gap: 1vh;
+  font-size: 1.5vw;
+  font-weight: 400;
+  @media (max-width: 900px) {
+    font-size: 16px;
+  }
+`;
+
+export const Stats = styled.div`
+width: 96%;
+display: flex;
+justify-content: center;
+gap: 1vw;
+flex: 1 1 50%;
 `;

@@ -11,9 +11,9 @@ export const MainTitle = styled.h1`
 
 export const StyledGameField = styled.div`
   margin: 3vh auto;
-  width: 90%;
+  width: 98%;
   display: flex;
-  gap: 5vw;
+  gap: 2vw;
   align-items: center;
   justify-content: center;
 

@@ -20,7 +20,15 @@ export const hitCheck = (
       }[]
     >
   >,
-  setEndGame: React.Dispatch<React.SetStateAction<boolean>>
+  hits: number,
+  missed: number,  
+  setStats: React.Dispatch<React.SetStateAction<{
+    playerHits: number;
+    playerMissed: number;
+    opponentHits: number;
+    opponentMissed: number;
+}>>,
+yourTurn:boolean
 ) => {
   const directions = [
     [0, 1],
@@ -38,7 +46,17 @@ export const hitCheck = (
       ...clickedSquare,
       state: "Hit",
     };
-
+    if(yourTurn){
+      setStats((prevStats) => ({
+        ...prevStats,
+        playerHits: prevStats.playerHits + 1,
+      }));
+    } else {
+      setStats((prevStats) => ({
+        ...prevStats,
+        opponentHits: prevStats.opponentHits + 1,
+      }));
+    }
     const targetValue = clickedSquare.value;
     let allSameValueCellsHaveState1 = true;
 
@@ -79,7 +97,17 @@ export const hitCheck = (
       ...clickedSquare,
       state: "Missed",
     };
-
+    if(yourTurn){
+      setStats((prevStats) => ({
+        ...prevStats,
+        playerMissed: prevStats.playerMissed + 1,
+      }));
+    } else {
+      setStats((prevStats) => ({
+        ...prevStats,
+        opponentMissed: prevStats.opponentMissed + 1,
+      }));
+    }
     setBoard(updatedBoard);
   }
 

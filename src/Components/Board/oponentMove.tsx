@@ -24,10 +24,24 @@ export function opponentMove(
       }[]
     >
   >,
-  setEndGame: React.Dispatch<React.SetStateAction<boolean>>,
   setTurnInfoTxt: React.Dispatch<React.SetStateAction<string>>,
   setTurnInfoState: React.Dispatch<React.SetStateAction<string>>,
-  columnHeaders: string[]
+  columnHeaders: string[],
+  stats: {
+    playerHits: number;
+    playerMissed: number;
+    opponentHits: number;
+    opponentMissed: number;
+  },
+  setStats: React.Dispatch<
+    React.SetStateAction<{
+      playerHits: number;
+      playerMissed: number;
+      opponentHits: number;
+      opponentMissed: number;
+    }>
+  >,
+  yourTurn: boolean
 ) {
   const updatedBoard = [...board];
   let hitCount = 0;
@@ -130,7 +144,10 @@ export function opponentMove(
     setBoard,
     ships,
     setShips,
-    setEndGame
+    stats.opponentHits,
+    stats.opponentMissed,
+    setStats,
+    yourTurn
   );
   setBoard(updatedBoard);
   setTurnInfoTxt(`${columnHeaders[randomColumn]}${randomRow + 1}`);

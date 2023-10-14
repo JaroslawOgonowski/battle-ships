@@ -10,7 +10,13 @@ export const GameField = () => {
   const [turnInfoState, setTurnInfoState] = useState("");
   const [gameOn, setGameOn] = useState(false);
   const [endGame, setEndGame] = useState(false);
-  
+  const [stats, setStats] = useState({
+    playerHits: 0,
+    playerMissed: 0,
+    opponentHits: 0,
+    opponentMissed: 0,
+  });
+
   if (endGame === false)
     return (
       <>
@@ -25,6 +31,8 @@ export const GameField = () => {
             setGameOn={setGameOn}
             setEndGame={setEndGame}
             endGame={endGame}
+            stats={stats}
+            setStats={setStats}
           />
           {gameOn === true ? (
             <>
@@ -32,6 +40,7 @@ export const GameField = () => {
                 yourTurn={yourTurn}
                 turnInfoTxt={turnInfoTxt}
                 turnInfoState={turnInfoState}
+                stats={stats}
               />
               <Board
                 yourTurn={yourTurn}
@@ -43,6 +52,8 @@ export const GameField = () => {
                 setGameOn={setGameOn}
                 setEndGame={setEndGame}
                 endGame={endGame}
+                stats={stats}
+                setStats={setStats}
               />
             </>
           ) : null}

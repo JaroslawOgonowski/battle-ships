@@ -16,7 +16,7 @@ export const TurnInfo: React.FC<TurnInfoProps> = ({
   yourTurn,
   turnInfoTxt,
   turnInfoState,
-  stats,
+  stats: { playerHits, playerMissed, opponentHits, opponentMissed },
 }) => {
   const hitRatio = (statHits: number, statMissed: number) => {
     if (statHits + statMissed === 0) return "-";
@@ -38,23 +38,23 @@ export const TurnInfo: React.FC<TurnInfoProps> = ({
         <Turn>
           Opponent
           <br /> Stats:
-          <Content>Hits:{" " + stats.opponentHits} </Content>
-          <Content>Missed:{" " + stats.opponentMissed} </Content>
+          <Content>Hits:{" " + opponentHits} </Content>
+          <Content>Missed:{" " + opponentMissed} </Content>
           <Content>
             Hit Ratio:
             <br />
-            {hitRatio(stats.opponentHits, stats.opponentMissed)}
+            {hitRatio(opponentHits, opponentMissed)}
           </Content>
         </Turn>
         <Turn>
           Your
           <br /> Stats:
-          <Content>Hits:{" " + stats.playerHits} </Content>
-          <Content>Missed:{" " + stats.playerMissed} </Content>
+          <Content>Hits:{" " + playerHits} </Content>
+          <Content>Missed:{" " + playerMissed} </Content>
           <Content>
             Hit Ratio:
             <br />
-            {hitRatio(stats.playerHits, stats.playerMissed)}
+            {hitRatio(playerHits, playerMissed)}
           </Content>
         </Turn>
       </Stats>

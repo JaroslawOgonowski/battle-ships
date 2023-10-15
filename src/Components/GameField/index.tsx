@@ -60,5 +60,5 @@ export const GameField = () => {
         </StyledGameField>
       </>
     );
-  else return <Endgame yourTurn={yourTurn} />;
+  else return <Endgame stats={stats} yourTurn={yourTurn} />;
 };

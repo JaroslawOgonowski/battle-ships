@@ -1,11 +1,24 @@
 import { MainTitle } from "../GameField/styled";
 import { InterfaceButton } from "../GameInterface/styled";
-import { EndGameMsgLose, EndGameMsgWin, Image, Wrapper } from "./styled";
+import {
+  EndGameMsgLose,
+  EndGameMsgWin,
+  Image,
+  Stats,
+  Summary,
+  Wrapper,
+} from "./styled";
 import winImg from "./images/cruise-outline-svgrepo-com.svg";
-import loseImg from "./images/ship-wreck-svgrepo-com.svg";
-import { loseMsg, winMsg } from "./messages";
+import loseImg from "./images/6150297.png";
+import { loseMsg, summary, winMsg } from "./messages";
 type EndGameProps = {
   yourTurn: boolean;
+  stats: {
+    playerHits: number;
+    playerMissed: number;
+    opponentHits: number;
+    opponentMissed: number;
+  };
 };
 
 const randomLoseIndex = Math.floor(Math.random() * loseMsg.length);
@@ -15,8 +28,13 @@ function refreshPage() {
   window.location.reload();
 }
 
-export const Endgame: React.FC<EndGameProps> = ({ yourTurn }) => {
+export const Endgame: React.FC<EndGameProps> = ({
+  yourTurn,
+  stats,
+}) => {
 
+ 
+  
   return (
     <Wrapper>
       <MainTitle>📡 Battle ships ⚓</MainTitle>
@@ -33,11 +51,14 @@ export const Endgame: React.FC<EndGameProps> = ({ yourTurn }) => {
       ) : (
         <>
           <EndGameMsgLose>{loseMsg[randomLoseIndex]}</EndGameMsgLose>
-          <Image src={loseImg} />
+          <Stats>
+            <Image src={loseImg} />
+            <Summary>{summary(yourTurn, stats)}</Summary>
+          </Stats>
         </>
       )}
       <InterfaceButton onClick={() => refreshPage()}>
-        Play Again ⁜
+        Play Again
       </InterfaceButton>
     </Wrapper>
   );

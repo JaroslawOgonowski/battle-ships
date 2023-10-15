@@ -46,7 +46,10 @@ export const Endgame: React.FC<EndGameProps> = ({
       {!yourTurn ? (
         <>
           <EndGameMsgWin>{winMsg[randomWinIndex]}</EndGameMsgWin>
-          <Image src={winImg} />
+          <Stats>
+            <Image src={winImg} />
+            <Summary>{summary(yourTurn, stats)}</Summary>
+          </Stats>
         </>
       ) : (
         <>

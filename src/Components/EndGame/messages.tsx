@@ -41,36 +41,28 @@ export const summary = (yourTurn: boolean, stats: {
   const opponentHitRatio = (opponentHits / opponentTotalShots) * 100;
 
   if (!yourTurn) {
-    if (playerHits > opponentHits) {
-      if (playerHitRatio >= 40) {
-        return "You're winning with a hit ratio of " + playerHitRatio.toFixed(2) + "%. Keep it up!";
-      } else {
-        return "You're winning with a surprisingly low hit ratio of " + playerHitRatio.toFixed(2) + "%. How did you manage to win with that accuracy?";
+      if (playerHitRatio >= 80) {
+        return "You're winning with an incredible hit ratio of " + playerHitRatio.toFixed(2) + "%. It's almost impossible. I hope you play fair...";
+      } else if (playerHitRatio >= 60 && playerHitRatio < 80){
+        return "You're winning with a really good hit ratio of " + playerHitRatio.toFixed(2) + "%. The opponent simply had no chance...";
+      } else if (playerHitRatio >= 40 && playerHitRatio < 60){
+        return "The result is similar to flipping a coin. You're accuracy: " + playerHitRatio.toFixed(2) + "%. You were very lucky this time...";
+      } else if (playerHitRatio >= 20 && playerHitRatio < 40){
+        return "Did you really win with accuracy: " + playerHitRatio.toFixed(2) + "%? But... how?";
+      } else if (playerHitRatio < 20){
+        return "No... Hit ratio: " + playerHitRatio.toFixed(2) + "% and win? No... NO... Just... No.";
       }
-    } else if (playerHits < opponentHits) {
-      if (playerHitRatio >= 50) {
-        return "You're losing with a hit ratio of " + playerHitRatio.toFixed(2) + "%. Time to step up your game!";
-      } else {
-        return "You're losing with a hit ratio of " + playerHitRatio.toFixed(2) + "%. You need a miracle to win with such accuracy.";
-      }
-    } else {
-      return "You're tied with your opponent. Make your next move count!";
-    }
   } else {
-    if (opponentHits > playerHits) {
-      if (opponentHitRatio >= 40) {
-        return "Your opponent is winning with a hit ratio of " + opponentHitRatio.toFixed(2) + "%. Can you turn the tide?";
-      } else {
-        return "Your opponent is winning with a surprisingly low hit ratio of " + opponentHitRatio.toFixed(2) + "%. You're in a tough spot.";
-      }
-    } else if (opponentHits < playerHits) {
-      if (opponentHitRatio >= 50) {
-        return "You're winning with a hit ratio of " + playerHitRatio.toFixed(2) + "%. Hang in there!";
-      } else {
-        return "You're winning with a hit ratio of " + playerHitRatio.toFixed(2) + "%. Your accuracy is saving the day!";
-      }
-    } else {
-      return "You're tied with your opponent. The battle is fierce!";
+    if (opponentHitRatio >= 80) {
+      return "The algorithm is truly random and yet it has achieved accuracy:" + opponentHitRatio.toFixed(2) + "%. AI will destroy us all...";
+    } else if (opponentHitRatio >= 60 && opponentHitRatio < 80){
+      return "Luck favors... but not to you. Your opponent achieved accuracy:" + opponentHitRatio.toFixed(2) + "%. You just had no chance...";
+    } else if (opponentHitRatio >= 40 && opponentHitRatio < 60){
+      return "The result is similar to flipping a coin. AI accuracy: " + opponentHitRatio.toFixed(2) + "%. You were out of luck...";
+    } else if (opponentHitRatio >= 20 && opponentHitRatio < 40){
+      return "Did you really lose with AI accuracy: " + opponentHitRatio.toFixed(2) + "%? But... how?";
+    } else if (opponentHitRatio < 20){
+      return "No... AI Hit ratio: " + opponentHitRatio.toFixed(2) + "% and win? No... NO... Just... No.";
     }
   }
 };

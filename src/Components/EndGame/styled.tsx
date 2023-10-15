@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const Wrapper = styled.main`
   margin: 12vh auto;
-  width: 50%;
+  width: 90%;
   height: 65vh;
   background-color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
+
 `;
 export const EndGameMsgWin = styled.div`
   width: 90%;
